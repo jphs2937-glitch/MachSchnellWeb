@@ -101,8 +101,6 @@ All of these are in `content/site.ts`, marked `// TODO:`.
 
 | Placeholder | Where | Current value |
 |---|---|---|
-| Storage + 1 Detail monthly price | `plans` → `storage-1-detail` → `price` | `$XXX` |
-| Storage + 2 Details monthly price | `plans` → `storage-2-details` → `price` | `$XXX` |
 | Grand Prix upgrade price per detail | `upgrades` → `grand-prix` → `price` | `+$XX` |
 | Concours upgrade price per detail | `upgrades` → `concours` → `price` | `+$XX` |
 | FAQ: access to your car | `storageFaq[0].a` | placeholder answer |
