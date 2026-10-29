@@ -56,7 +56,7 @@ Where things live in the file:
 
 | You want to change | Look for |
 |---|---|
-| Phone number | `PHONE_PLACEHOLDER` near the top (the `tel:` link is built from it automatically) |
+| Phone number | `contact.phone` (the `tel:` link is built from it automatically) |
 | Address, map, Instagram, club email | `contact` |
 | Top navigation | `nav`, `cta` |
 | Turn on the Events page | `events.enabled` → `true` (adds the `EVENTS` link, makes `/events` indexable and adds it to the sitemap) |
@@ -101,13 +101,10 @@ All of these are in `content/site.ts`, marked `// TODO:`.
 
 | Placeholder | Where | Current value |
 |---|---|---|
-| Detailing phone number | `PHONE_PLACEHOLDER` constant | `PHONE_PLACEHOLDER` |
 | Storage + 1 Detail monthly price | `plans` → `storage-1-detail` → `price` | `$XXX` |
 | Storage + 2 Details monthly price | `plans` → `storage-2-details` → `price` | `$XXX` |
 | Grand Prix upgrade price per detail | `upgrades` → `grand-prix` → `price` | `+$XX` |
 | Concours upgrade price per detail | `upgrades` → `concours` → `price` | `+$XX` |
-| Instagram handle | `contact.instagram.handle` | `@machschnell` (unconfirmed) |
-| Instagram URL | `contact.instagram.url` | `https://www.instagram.com/` |
 | FAQ: access to your car | `storageFaq[0].a` | placeholder answer |
 | FAQ: insurance | `storageFaq[1].a` | placeholder answer |
 | FAQ: minimum term | `storageFaq[2].a` | placeholder answer |
