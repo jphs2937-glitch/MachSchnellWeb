@@ -137,13 +137,13 @@ export const site = {
     {
       id: "grand-prix" as UpgradeId,
       name: "Grand Prix",
-      price: "+$XX", // TODO: Grand Prix upgrade price per detail
+      price: "+$100",
       description: "Full interior and exterior, leather conditioning, protective wax.",
     },
     {
       id: "concours" as UpgradeId,
       name: "Concours",
-      price: "+$XX", // TODO: Concours upgrade price per detail
+      price: "+$175",
       description: "Our full collector-car detail with clay bar and premium wax.",
     },
   ],
@@ -151,19 +151,19 @@ export const site = {
   storageFaq: [
     {
       q: "Can I get to my car?",
-      a: "Yes. Tell us ahead of time and your car is out, charged and waiting. Access hours to be confirmed.", // TODO: final answer
+      a: "Yes. Let us know in advance and your car will be out, charged and ready to drive.",
     },
     {
       q: "Do I need my own insurance?",
-      a: "Keep your own policy active while your car is stored with us. Coverage details to be confirmed.", // TODO: final answer
+      a: "Yes. We insure the facility, and your car needs its own active policy while it is stored with us.",
     },
     {
       q: "Is there a minimum term?",
-      a: "Term details to be confirmed. Ask us when we call.", // TODO: final answer
+      a: "Yes. Memberships start with a six-month minimum.",
     },
     {
       q: "What size vehicles do you take?",
-      a: "Cars, coupes, convertibles and most SUVs. Ask us about anything longer or taller.", // TODO: final answer
+      a: "Anything from a compact two-seater to a full-size, heavy-duty pickup.",
     },
   ],
 
