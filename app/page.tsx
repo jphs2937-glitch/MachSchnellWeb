@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { ogImages } from "@/lib/seo";
 import { addressLine, site } from "@/content/site";
 import { telHref } from "@/lib/phone";
 import { AmenityList } from "@/components/AmenityList";
@@ -23,6 +24,7 @@ export const metadata: Metadata = {
     title: home.seoTitle,
     description: site.description,
     url: "/",
+    images: ogImages,
   },
 };
 

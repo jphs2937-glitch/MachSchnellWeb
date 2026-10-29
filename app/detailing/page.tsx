@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { ogImages } from "@/lib/seo";
 import { site } from "@/content/site";
 import { PackageCard } from "@/components/PackageCard";
 import { PhoneCTA } from "@/components/PhoneCTA";
@@ -17,6 +18,7 @@ export const metadata: Metadata = {
     title: page.seoTitle,
     description: page.seoDescription,
     url: "/detailing",
+    images: ogImages,
   },
 };
 
@@ -36,7 +38,6 @@ export default function DetailingPage() {
               {page.title}
             </h1>
             <p className="body-l measure">{page.lead}</p>
-            <p className={`data ${styles.notice}`}>{site.detailing.bookingNotice}</p>
           </div>
 
           <div className={styles.phone}>

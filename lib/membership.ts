@@ -100,66 +100,78 @@ export const initialMembershipState: MembershipFormState = {
 /* Schema                                                              */
 /* ------------------------------------------------------------------ */
 
-const e = site.join.form.errors;
-const tooLong = (max: number) => e.tooLong.replace("{max}", String(max));
+/*
+ * Built on first use, not at import time, so the client form can import the
+ * constants and types above without pulling zod into the browser bundle.
+ */
+function buildSchema() {
+  const e = site.join.form.errors;
+  const tooLong = (max: number) => e.tooLong.replace("{max}", String(max));
 
-/** Trimmed text with no line breaks (they would end up in email headers). */
-const line = (max: number, required: string) =>
-  z
-    .string()
-    .transform((v) => v.replace(/\s+/g, " ").trim())
-    .pipe(z.string().min(1, { error: required }).max(max, { error: tooLong(max) }));
+  /** Trimmed text with no line breaks (they would end up in email headers). */
+  const line = (max: number, required: string) =>
+    z
+      .string()
+      .transform((v) => v.replace(/\s+/g, " ").trim())
+      .pipe(z.string().min(1, { error: required }).max(max, { error: tooLong(max) }));
 
-export const membershipSchema = z
-  .object({
-    name: line(MAX_LENGTHS.name, e.name),
-    email: z
-      .string()
-      .trim()
-      .max(MAX_LENGTHS.email, { error: tooLong(MAX_LENGTHS.email) })
-      .pipe(z.email({ error: e.email })),
-    phone: line(MAX_LENGTHS.phone, e.phone).refine(
-      (v) => /^[0-9+().\-\s]+$/.test(v) && v.replace(/\D/g, "").length >= 7,
-      { error: e.phone },
-    ),
-    year: z
-      .string()
-      .trim()
-      .regex(/^\d{4}$/, { error: e.year })
-      .refine((v) => {
-        const y = Number(v);
-        return y >= 1886 && y <= new Date().getFullYear() + 2;
-      }, { error: e.year }),
-    make: line(MAX_LENGTHS.make, e.make),
-    model: line(MAX_LENGTHS.model, e.model),
-    plan: z.enum(PLAN_IDS, { error: e.plan }),
-    /** Only read for plans with details; ignored (and dropped) for Storage. */
-    package: z.string().optional(),
-    startDate: z
-      .string()
-      .trim()
-      .refine((v) => v === "" || (/^\d{4}-\d{2}-\d{2}$/.test(v) && !Number.isNaN(Date.parse(v)) && v >= todayInHouston()), {
-        error: e.startDate,
-      }),
-    message: z
-      .string()
-      .trim()
-      .max(MAX_LENGTHS.message, { error: tooLong(MAX_LENGTHS.message) }),
-  })
-  .superRefine((data, ctx) => {
-    if (planHasDetails(data.plan) && data.package !== undefined && data.package !== "") {
-      if (!(PACKAGE_IDS as readonly string[]).includes(data.package)) {
-        ctx.addIssue({ code: "custom", path: ["package"], message: e.package });
+  return z
+    .object({
+      name: line(MAX_LENGTHS.name, e.name),
+      email: z
+        .string()
+        .trim()
+        .max(MAX_LENGTHS.email, { error: tooLong(MAX_LENGTHS.email) })
+        .pipe(z.email({ error: e.email })),
+      phone: line(MAX_LENGTHS.phone, e.phone).refine(
+        (v) => /^[0-9+().\-\s]+$/.test(v) && v.replace(/\D/g, "").length >= 7,
+        { error: e.phone },
+      ),
+      year: z
+        .string()
+        .trim()
+        .regex(/^\d{4}$/, { error: e.year })
+        .refine((v) => {
+          const y = Number(v);
+          return y >= 1886 && y <= new Date().getFullYear() + 2;
+        }, { error: e.year }),
+      make: line(MAX_LENGTHS.make, e.make),
+      model: line(MAX_LENGTHS.model, e.model),
+      plan: z.enum(PLAN_IDS, { error: e.plan }),
+      /** Only read for plans with details; ignored (and dropped) for Storage. */
+      package: z.string().optional(),
+      startDate: z
+        .string()
+        .trim()
+        .refine((v) => v === "" || (/^\d{4}-\d{2}-\d{2}$/.test(v) && !Number.isNaN(Date.parse(v)) && v >= todayInHouston()), {
+          error: e.startDate,
+        }),
+      message: z
+        .string()
+        .trim()
+        .max(MAX_LENGTHS.message, { error: tooLong(MAX_LENGTHS.message) }),
+    })
+    .superRefine((data, ctx) => {
+      if (planHasDetails(data.plan) && data.package !== undefined && data.package !== "") {
+        if (!(PACKAGE_IDS as readonly string[]).includes(data.package)) {
+          ctx.addIssue({ code: "custom", path: ["package"], message: e.package });
+        }
       }
-    }
-  })
-  .transform((data) => ({
-    ...data,
-    // Storage takes no package. Detail plans default to the included Pit Stop.
-    package: planHasDetails(data.plan) ? ((data.package || DEFAULT_PACKAGE) as UpgradeId) : undefined,
-  }));
+    })
+    .transform((data) => ({
+      ...data,
+      // Storage takes no package. Detail plans default to the included Pit Stop.
+      package: planHasDetails(data.plan) ? ((data.package || DEFAULT_PACKAGE) as UpgradeId) : undefined,
+    }));
+}
 
-export type MembershipRequest = z.output<typeof membershipSchema>;
+let schema: ReturnType<typeof buildSchema> | undefined;
+/** The server-side source of truth for a membership request. */
+export function membershipSchema() {
+  return (schema ??= buildSchema());
+}
+
+export type MembershipRequest = z.output<ReturnType<typeof buildSchema>>;
 
 /** Reads the form fields into plain strings for the schema. Missing fields become "". */
 export function readForm(formData: FormData): Record<FieldName, string> {
@@ -261,7 +273,7 @@ export function buildTeamEmail(r: MembershipRequest, submittedAt: Date = new Dat
   rows.push([f.message, r.message || t.notGiven]);
   rows.push([
     t.submittedLabel,
-    new Intl.DateTimeFormat("en-US", { dateStyle: "medium", timeStyle: "short", timeZone: "America/Chicago" }).format(submittedAt),
+    new Intl.DateTimeFormat("en-US", { dateStyle: "medium", timeStyle: "short", hourCycle: "h23", timeZone: "America/Chicago" }).format(submittedAt),
   ]);
 
   const html = emailShell(

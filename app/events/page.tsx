@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { ogImages } from "@/lib/seo";
 import { site } from "@/content/site";
 import { Button } from "@/components/Button";
 import { SectionHead } from "@/components/SectionHead";
@@ -17,8 +18,7 @@ export const metadata: Metadata = {
     title: events.title,
     description: events.seoDescription,
     url: events.href,
-    // A page-level openGraph replaces the root one, so point back at the site-wide image (app/opengraph-image.tsx).
-    images: [{ url: "/opengraph-image", width: 1200, height: 630, alt: site.name }],
+    images: ogImages,
   },
 };
 

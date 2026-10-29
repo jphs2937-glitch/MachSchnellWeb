@@ -88,7 +88,7 @@ export const site = {
 
   amenities: [
     { title: "Climate controlled", text: "Temperature and humidity held steady all year." },
-    { title: "Secure, gated, camera-monitored", text: "Gated access and cameras on the floor around the clock." },
+    { title: "Secure, gated, camera-monitored", text: "Gated entry and cameras on the floor." },
     { title: "Battery tender and car cover included", text: "Every car on a tender, under a cover, ready to start." },
   ],
 
@@ -303,13 +303,13 @@ export const site = {
     location: {
       kicker: "Location",
       title: "Find us",
-      text: "West Houston, inside the Beltway. Visits by appointment.",
+      text: "West Houston, inside the Beltway.",
       directionsLabel: "Get directions",
     },
 
     finalCta: {
       title: "Reserve your space",
-      text: "Spaces are limited. Tell us about your car and we'll call you within one business day.",
+      text: "Tell us about your car and we'll call you within one business day.",
       cta: { label: "Become a member", href: "/join" },
     },
   },
@@ -332,7 +332,7 @@ export const site = {
     plansLink: { label: "See the plans", href: "#plans" },
     finalCta: {
       title: "Reserve your space",
-      text: "Spaces are limited. Tell us about your car and we'll call you within one business day.",
+      text: "Tell us about your car and we'll call you within one business day.",
     },
     betweenPhotos: [
       { src: "", alt: "Close-up of a battery tender connected to a stored car", caption: "Battery tender" },

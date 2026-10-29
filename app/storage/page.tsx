@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { ogImages } from "@/lib/seo";
 import { site } from "@/content/site";
 import { AmenityList } from "@/components/AmenityList";
 import { Button } from "@/components/Button";
@@ -19,6 +20,7 @@ export const metadata: Metadata = {
     title: page.seoTitle,
     description: page.seoDescription,
     url: "/storage",
+    images: ogImages,
   },
 };
 

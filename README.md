@@ -170,7 +170,30 @@ lib/                  Phone links, site URL, nav links, membership form schema a
 public/brand/         Logos copied from brand-kit/logos (used as files, never redrawn)
 public/photos/        Real photos go here
 scripts/              Token generator, screenshot script
+screenshots/          Review screenshots of every page at 360px and 1280px
 ```
+
+## Screenshots
+
+`screenshots/` holds each page at mobile (360px) and desktop (1280px), plus the open mobile menu, the gallery lightbox, and the membership form's error and success states. To regenerate them, build and start the site, then run the script. It uses a global Playwright install, which is a one-time setup:
+
+```bash
+npm install -g playwright && npx playwright install chromium
+```
+
+```bash
+npm run build && npm run start
+```
+
+```bash
+NODE_PATH="$(npm root -g)" node scripts/screenshot.mjs http://localhost:3000 screenshots
+```
+
+## Quality checks run before handoff
+
+- Lighthouse (mobile and desktop) on Home, Storage, Detailing, Gallery and Join: Performance 98–100, Accessibility 100, Best Practices 100, SEO 100.
+- No horizontal scroll at 360, 768, 1024, 1280 and 1440px.
+- Tested: mobile menu (open, Esc to close), `?plan=` pre-selection, detailing package reveal/hide/clear when switching plans, server-side validation with inline errors, success message, gallery lightbox (click, arrows, Esc, focus return), `/events` noindex and absent from nav, sitemap and robots.
 
 ## Brand
 

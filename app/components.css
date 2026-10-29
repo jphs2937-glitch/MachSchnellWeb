@@ -289,8 +289,9 @@
   top: calc(34% + 2 * var(--stripe-weight) + var(--stripe-gap) + var(--space-4));
   text-align: center;
   font-family: var(--font-display), system-ui, sans-serif;
-  font-size: var(--type-kicker-size);
-  line-height: var(--type-kicker-line);
+  /* 1px over the kicker size so placeholder-only pages stay above the 12px legibility floor */
+  font-size: 12px;
+  line-height: 16px;
   font-weight: 700;
   letter-spacing: var(--type-kicker-tracking);
   text-transform: uppercase;

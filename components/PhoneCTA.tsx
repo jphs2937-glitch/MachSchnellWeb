@@ -11,7 +11,7 @@ type Props = {
 /** "Call us to schedule your detailing appointment" with a tel: link. */
 export function PhoneCTA({ compact = false, headingLevel: H = "h2" }: Props) {
   return (
-    <aside className={["ms-phone", compact && "ms-phone-compact"].filter(Boolean).join(" ")} aria-label="Book a detail by phone">
+    <div className={["ms-phone", compact && "ms-phone-compact"].filter(Boolean).join(" ")}>
       <StripeRule />
       <div className="ms-phone-body">
         <div>
@@ -23,6 +23,6 @@ export function PhoneCTA({ compact = false, headingLevel: H = "h2" }: Props) {
           {site.contact.phone}
         </a>
       </div>
-    </aside>
+    </div>
   );
 }
