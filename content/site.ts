@@ -107,7 +107,7 @@ export const site = {
     {
       id: "storage-1-detail" as PlanId,
       name: "Storage + 1 Detail",
-      price: "$XXX", // TODO: monthly price for Storage + 1 Detail
+      price: "$450",
       pricePrefix: "",
       priceSuffix: "/month",
       summary: "Storage plus one Pit Stop detail per month.",
@@ -117,7 +117,7 @@ export const site = {
     {
       id: "storage-2-details" as PlanId,
       name: "Storage + 2 Details",
-      price: "$XXX", // TODO: monthly price for Storage + 2 Details
+      price: "$575",
       pricePrefix: "",
       priceSuffix: "/month",
       summary: "Storage plus two Pit Stop details per month.",
