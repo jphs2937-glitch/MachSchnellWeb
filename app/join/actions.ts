@@ -37,7 +37,8 @@ export async function submitMembership(_prev: MembershipFormState, formData: For
   const team = buildTeamEmail(request, new Date(submittedAt));
   const confirmation = buildConfirmationEmail(request);
 
-  const apiKey = process.env.RESEND_API_KEY;
+  // Tolerate stray whitespace, line breaks or quotes picked up when the key was pasted into Vercel.
+  const apiKey = process.env.RESEND_API_KEY?.trim().replace(/^["'`]+|["'`]+$/g, "");
   const to = process.env.MEMBERSHIP_TO_EMAIL || site.contact.email;
   const from = process.env.MEMBERSHIP_FROM_EMAIL || DEFAULT_FROM;
 
