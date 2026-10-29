@@ -1,0 +1,27 @@
+.night {
+  border-top: 1px solid var(--line);
+}
+
+.panel {
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  background: var(--surface-raised);
+}
+
+.body {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-4);
+  padding: var(--space-8) var(--space-4);
+}
+@media (min-width: 768px) {
+  .body {
+    padding: var(--space-12) var(--space-8);
+  }
+}
+
+.text {
+  color: var(--ink-muted);
+}

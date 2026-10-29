@@ -1,0 +1,684 @@
+/* Mach Schnell components. Matches brand-kit/reference-components.css; every value comes from tokens.css. */
+
+.ms-red {
+  color: var(--signal-red);
+}
+
+/* ------------------------------------------------------------------ */
+/* Club stripe                                                         */
+/* ------------------------------------------------------------------ */
+.ms-stripe {
+  display: flex;
+  flex-direction: column;
+  gap: var(--stripe-gap);
+  width: 100%;
+}
+.ms-stripe > span {
+  display: block;
+  height: var(--stripe-weight);
+  border-radius: var(--radius-0);
+}
+.ms-stripe-1 {
+  background: var(--stripe-1);
+}
+.ms-stripe-2 {
+  background: var(--stripe-2);
+}
+/* Edge to edge of the viewport, from inside any container */
+.ms-stripe-bleed {
+  width: 100vw;
+  margin-inline: calc(50% - 50vw);
+}
+
+/* ------------------------------------------------------------------ */
+/* Button                                                              */
+/* ------------------------------------------------------------------ */
+.ms-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  border: 2px solid transparent;
+  border-radius: var(--radius-sm);
+  font-family: var(--font-display), system-ui, sans-serif;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  text-decoration: none;
+  text-align: center;
+  cursor: pointer;
+  white-space: nowrap;
+  transition:
+    background-color 150ms ease-out,
+    color 150ms ease-out;
+}
+.ms-btn-md {
+  font-size: 14px;
+  line-height: 18px;
+  padding: var(--space-3) var(--space-6);
+  min-height: 46px;
+}
+.ms-btn-sm {
+  font-size: 12px;
+  line-height: 16px;
+  padding: var(--space-2) var(--space-4);
+  min-height: 36px;
+}
+.ms-btn-lg {
+  font-size: 18px;
+  line-height: 24px;
+  padding: var(--space-4) var(--space-8);
+  min-height: 60px;
+}
+.ms-btn-primary {
+  background: var(--signal-red);
+  color: var(--on-red);
+}
+.ms-btn-primary:hover {
+  background: var(--signal-red-pressed);
+}
+.ms-btn-secondary {
+  background: var(--ink);
+  color: var(--surface);
+}
+.ms-btn-secondary:hover {
+  background: var(--ink-muted);
+}
+.ms-btn-ghost {
+  background: transparent;
+  color: var(--ink);
+  border-color: var(--line-strong);
+}
+.ms-btn-ghost:hover {
+  background: var(--surface-sunken);
+}
+.ms-btn:focus-visible {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 2px;
+}
+.ms-btn[disabled],
+.ms-btn[aria-disabled="true"] {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+.ms-btn-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+}
+
+/* ------------------------------------------------------------------ */
+/* NavBar                                                              */
+/* ------------------------------------------------------------------ */
+.ms-nav-wrap {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: var(--surface);
+  border-bottom: 1px solid var(--line);
+}
+.ms-nav {
+  display: flex;
+  align-items: center;
+  gap: var(--space-6);
+  min-height: 64px;
+  padding-block: var(--space-3);
+}
+.ms-nav-brand {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  text-decoration: none;
+  color: var(--ink);
+  flex: none;
+}
+.ms-nav-mark {
+  width: 36px;
+  height: 36px;
+}
+/* 19px bold: the smallest size where signal-red text meets contrast (BRAND.md) */
+.ms-nav-word {
+  font-family: var(--font-display), system-ui, sans-serif;
+  font-weight: 800;
+  font-size: 19px;
+  line-height: 24px;
+  white-space: nowrap;
+  display: none;
+}
+@media (min-width: 520px) {
+  .ms-nav-word {
+    display: inline;
+  }
+}
+.ms-nav-links {
+  display: none;
+  margin-left: auto;
+}
+.ms-nav-links ul {
+  display: flex;
+  gap: var(--space-6);
+  margin: 0;
+}
+.ms-nav-links a,
+.ms-nav-menu a {
+  font-family: var(--font-display), system-ui, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink);
+  text-decoration: none;
+  padding: var(--space-1) 0;
+  border-bottom: 2px solid transparent;
+  transition: border-color 150ms ease-out;
+}
+.ms-nav-links a:hover,
+.ms-nav-links a[aria-current="page"] {
+  border-bottom-color: var(--signal-red);
+}
+.ms-nav-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  margin-left: auto;
+}
+.ms-nav-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-height: 36px;
+  padding: var(--space-2) var(--space-3);
+  background: transparent;
+  border: 2px solid var(--line-strong);
+  border-radius: var(--radius-sm);
+  font-family: var(--font-display), system-ui, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+.ms-nav-toggle-bars {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  width: 16px;
+}
+.ms-nav-toggle-bars span {
+  display: block;
+  height: 2px;
+  background: var(--ink);
+}
+.ms-nav-menu {
+  border-top: 1px solid var(--line);
+  background: var(--surface);
+}
+.ms-nav-menu ul {
+  display: flex;
+  flex-direction: column;
+  padding-block: var(--space-2);
+  margin: 0 auto;
+}
+.ms-nav-menu li + li {
+  border-top: 1px solid var(--line);
+}
+.ms-nav-menu a {
+  display: block;
+  padding: var(--space-4) 0;
+  font-size: 14px;
+  border-bottom: 0;
+}
+.ms-nav-menu a[aria-current="page"] {
+  color: var(--accent-text);
+}
+@media (max-width: 380px) {
+  .ms-nav {
+    gap: var(--space-3);
+  }
+  .ms-nav-actions {
+    gap: var(--space-2);
+  }
+  .ms-nav-cta.ms-btn-sm {
+    padding-inline: var(--space-3);
+    letter-spacing: 0.04em;
+  }
+  .ms-nav-toggle {
+    padding-inline: var(--space-2);
+  }
+}
+@media (min-width: 960px) {
+  .ms-nav-links {
+    display: block;
+  }
+  .ms-nav-actions {
+    margin-left: 0;
+  }
+  .ms-nav-toggle,
+  .ms-nav-menu {
+    display: none;
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/* Photo slot                                                          */
+/* ------------------------------------------------------------------ */
+.ms-photo {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  border-radius: var(--radius-md);
+  background: var(--dove);
+}
+.ms-photo img {
+  border-radius: var(--radius-md);
+}
+.ms-photo-placeholder {
+  background: var(--dove);
+  color: var(--black);
+}
+.ms-photo-stripe {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 34%;
+}
+.ms-photo-label {
+  position: absolute;
+  left: var(--space-4);
+  right: var(--space-4);
+  top: calc(34% + 2 * var(--stripe-weight) + var(--stripe-gap) + var(--space-4));
+  text-align: center;
+  font-family: var(--font-display), system-ui, sans-serif;
+  /* 1px over the kicker size so placeholder-only pages stay above the 12px legibility floor */
+  font-size: 12px;
+  line-height: 16px;
+  font-weight: 700;
+  letter-spacing: var(--type-kicker-tracking);
+  text-transform: uppercase;
+  color: var(--black);
+}
+
+/* ------------------------------------------------------------------ */
+/* Cards                                                               */
+/* ------------------------------------------------------------------ */
+.ms-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  padding: var(--space-6) var(--space-4);
+  background: var(--surface-raised);
+  color: var(--ink);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+@media (min-width: 768px) {
+  .ms-card {
+    padding: var(--space-6);
+  }
+}
+.ms-card-foot {
+  margin-top: auto;
+  padding-top: var(--space-3);
+}
+.ms-card-stripe {
+  margin: calc(-1 * var(--space-6)) calc(-1 * var(--space-4)) var(--space-3);
+  width: auto;
+}
+@media (min-width: 768px) {
+  .ms-card-stripe {
+    margin-inline: calc(-1 * var(--space-6));
+  }
+}
+
+/* Plan */
+.ms-plan-featured {
+  border: 3px solid var(--line-strong);
+}
+.ms-plan-price {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: var(--space-1);
+  font-family: var(--font-display), system-ui, sans-serif;
+  text-transform: uppercase;
+}
+.ms-plan-prefix,
+.ms-plan-suffix {
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: var(--ink-muted);
+}
+.ms-plan-amount {
+  font-size: 40px;
+  line-height: 1;
+  font-weight: 900;
+  letter-spacing: -0.01em;
+  font-variant-numeric: tabular-nums;
+}
+.ms-plan-compact .ms-plan-amount {
+  font-size: 32px;
+}
+.ms-plan-upgrades {
+  border-top: 1px solid var(--line);
+  padding-top: var(--space-4);
+  margin-top: var(--space-2);
+}
+.ms-plan-upgrades ul {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  margin-top: var(--space-3);
+}
+.ms-plan-upgrades li {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+.ms-plan-upgrades strong {
+  font-weight: 700;
+}
+.ms-plan-upgrade-price {
+  color: var(--ink);
+}
+
+/* Package */
+.ms-package-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-4);
+}
+.ms-plate {
+  flex: none;
+  min-width: 64px;
+  padding: var(--space-1) var(--space-2);
+  border: 3px solid var(--line-strong);
+  border-radius: var(--radius-md);
+  background: var(--surface-raised);
+  font-family: var(--font-display), system-ui, sans-serif;
+  font-weight: 900;
+  font-size: 36px;
+  line-height: 44px;
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+}
+.ms-package-price {
+  font-family: var(--font-display), system-ui, sans-serif;
+  font-weight: 900;
+  font-size: 32px;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+  padding-top: var(--space-2);
+}
+.ms-package-tagline {
+  margin-top: var(--space-2);
+}
+.ms-package-compact .ms-plate {
+  font-size: 28px;
+  line-height: 36px;
+  min-width: 56px;
+}
+.ms-package-compact .ms-package-price {
+  font-size: 28px;
+}
+/* Inclusion list: short ink bars echo the stripe */
+.ms-ticks {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+.ms-ticks li {
+  position: relative;
+  padding-left: var(--space-6);
+}
+.ms-ticks li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 11px;
+  width: 12px;
+  height: 2px;
+  background: var(--ink);
+}
+
+/* ------------------------------------------------------------------ */
+/* Phone CTA                                                           */
+/* ------------------------------------------------------------------ */
+.ms-phone {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+}
+.ms-phone-body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+}
+.ms-phone-body .kicker {
+  margin-bottom: var(--space-3);
+}
+.ms-phone-number {
+  align-self: flex-start;
+  font-variant-numeric: tabular-nums;
+  max-width: 100%;
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+@media (min-width: 900px) {
+  .ms-phone-body {
+    flex-direction: row;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: var(--space-12);
+  }
+  .ms-phone-body > div {
+    max-width: 720px;
+  }
+  .ms-phone-number {
+    align-self: flex-end;
+    flex: none;
+  }
+}
+.ms-phone-compact .ms-phone-number {
+  font-size: 16px;
+  min-height: 52px;
+  padding-inline: var(--space-6);
+}
+
+/* ------------------------------------------------------------------ */
+/* Amenities                                                           */
+/* ------------------------------------------------------------------ */
+.ms-amenities {
+  display: grid;
+  grid-template-columns: 1fr;
+  border-top: 1px solid var(--line-strong);
+}
+.ms-amenities li {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  padding: var(--space-6) 0;
+  border-bottom: 1px solid var(--line);
+}
+@media (min-width: 900px) {
+  .ms-amenities {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    border-bottom: 1px solid var(--line);
+  }
+  .ms-amenities li {
+    padding: var(--space-6) var(--space-6) var(--space-6) 0;
+    border-bottom: 0;
+  }
+  .ms-amenities li + li {
+    padding-left: var(--space-6);
+    border-left: 1px solid var(--line);
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/* Map                                                                 */
+/* ------------------------------------------------------------------ */
+.ms-map {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  align-items: flex-start;
+}
+.ms-map-frame {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  background: var(--surface-sunken);
+}
+@media (min-width: 900px) {
+  .ms-map-frame {
+    aspect-ratio: 16 / 10;
+  }
+}
+.ms-map-frame iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+/* ------------------------------------------------------------------ */
+/* Footer                                                              */
+/* ------------------------------------------------------------------ */
+.ms-footer {
+  background: var(--surface-sunken);
+  color: var(--ink);
+  margin-top: 0;
+}
+.ms-footer-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-8);
+  padding-block: var(--space-12) var(--space-8);
+}
+@media (min-width: 768px) {
+  .ms-footer-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (min-width: 1024px) {
+  .ms-footer-grid {
+    grid-template-columns: 1.4fr 1fr 1fr 1fr;
+  }
+}
+.ms-footer-logo {
+  display: inline-block;
+}
+.ms-footer-logo img {
+  width: 247px;
+  height: auto;
+}
+.ms-footer-col {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+.ms-footer-col address {
+  font-style: normal;
+}
+.ms-footer-col a {
+  text-decoration: none;
+  display: inline-block;
+  padding-block: var(--space-1);
+}
+.ms-footer-col a:hover {
+  text-decoration: underline;
+  text-decoration-color: var(--signal-red);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 4px;
+}
+.ms-footer-col ul {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+.ms-footer .kicker-muted {
+  color: var(--ink);
+}
+.ms-footer .caption {
+  color: var(--ink);
+}
+.ms-footer-base {
+  padding-block: var(--space-6);
+  border-top: 1px solid var(--warm-gray);
+}
+
+/* ------------------------------------------------------------------ */
+/* FAQ                                                                 */
+/* ------------------------------------------------------------------ */
+.ms-faq {
+  border-top: 1px solid var(--line-strong);
+}
+.ms-faq-item {
+  border-bottom: 1px solid var(--line);
+}
+.ms-faq-q {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  padding: var(--space-6) 0;
+  cursor: pointer;
+  list-style: none;
+}
+.ms-faq-q::-webkit-details-marker {
+  display: none;
+}
+.ms-faq-q::marker {
+  content: "";
+}
+.ms-faq-q:hover .title {
+  color: var(--accent-text);
+}
+.ms-faq-q .title {
+  transition: color 150ms ease-out;
+}
+.ms-faq-q:focus-visible {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 2px;
+}
+/* Plus drawn with two 2px ink bars; the vertical bar fades out when open */
+.ms-faq-icon {
+  position: relative;
+  flex: none;
+  width: 16px;
+  height: 16px;
+}
+.ms-faq-icon::before,
+.ms-faq-icon::after {
+  content: "";
+  position: absolute;
+  background: var(--ink);
+}
+.ms-faq-icon::before {
+  left: 0;
+  right: 0;
+  top: 7px;
+  height: 2px;
+}
+.ms-faq-icon::after {
+  top: 0;
+  bottom: 0;
+  left: 7px;
+  width: 2px;
+  transition: opacity 150ms ease-out;
+}
+.ms-faq-item[open] .ms-faq-icon::after {
+  opacity: 0;
+}
+.ms-faq-a {
+  padding-bottom: var(--space-6);
+  padding-right: var(--space-8);
+}

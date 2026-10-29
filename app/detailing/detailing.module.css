@@ -1,0 +1,44 @@
+/* Detailing page. Layout only; every value comes from tokens.css. */
+
+.intro {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-6);
+}
+.intro > :global(.kicker) {
+  margin-bottom: calc(-1 * var(--space-3));
+}
+
+.phone {
+  margin-top: var(--space-12);
+}
+
+.photoBand {
+  padding-bottom: var(--space-12);
+}
+.photoPair {
+  padding-top: var(--space-12);
+}
+@media (min-width: 1024px) {
+  .photoBand {
+    padding-bottom: var(--space-16);
+  }
+  .photoPair {
+    padding-top: var(--space-16);
+  }
+}
+
+.packageGrid {
+  align-items: stretch;
+}
+
+.members {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-4);
+  margin-top: var(--space-8);
+  padding-top: var(--space-6);
+  border-top: 1px solid var(--line);
+}

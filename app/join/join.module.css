@@ -1,0 +1,62 @@
+/* Join page. Layout only; every value comes from tokens.css. */
+
+.head {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-4);
+}
+.head > :global(.display-xl) {
+  margin-top: calc(-1 * var(--space-2));
+}
+
+.stripe {
+  margin-block: var(--space-8) var(--space-12);
+}
+
+.layout {
+  display: grid;
+  gap: var(--space-12);
+  grid-template-columns: minmax(0, 1fr);
+}
+@media (min-width: 960px) {
+  .layout {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 720px);
+    gap: var(--space-16);
+    align-items: start;
+  }
+  .aside {
+    position: sticky;
+    top: 96px;
+  }
+}
+
+.aside {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  padding-top: var(--space-4);
+  border-top: 1px solid var(--line-strong);
+}
+
+.steps {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+}
+.steps li {
+  display: flex;
+  gap: var(--space-4);
+  padding-block: var(--space-3);
+  border-bottom: 1px solid var(--line);
+}
+.stepNo {
+  flex: none;
+  min-width: 24px;
+  color: var(--ink);
+  padding-top: 3px;
+}
+
+.formCol {
+  min-width: 0;
+}
