@@ -1,5 +1,6 @@
 import { site, type Plan } from "@/content/site";
 import { Button } from "./Button";
+import { FlapText } from "./FlapText";
 import { StripeRule } from "./StripeRule";
 
 type Props = {
@@ -24,7 +25,7 @@ export function PlanCard({ plan, index, compact = false, headingLevel: H = "h3" 
       <H className="headline">{plan.name}</H>
       <p className="ms-plan-price">
         {plan.pricePrefix && <span className="ms-plan-prefix">{plan.pricePrefix} </span>}
-        <span className="ms-plan-amount">{plan.price}</span>
+        <FlapText className="ms-plan-amount" text={plan.price} />
         <span className="ms-plan-suffix">{plan.priceSuffix}</span>
       </p>
       <p>{plan.summary}</p>

@@ -4,10 +4,12 @@ import { siteUrl } from "@/lib/url";
 import { NavBar } from "@/components/NavBar";
 import { Footer } from "@/components/Footer";
 import { LocalBusinessJsonLd } from "@/components/LocalBusinessJsonLd";
+import { Motion } from "@/components/Motion";
 import { fontDisplay, fontText } from "./fonts";
 import "./tokens.css";
 import "./globals.css";
 import "./components.css";
+import "./motion.css";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -48,6 +50,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         </main>
         <Footer />
         <LocalBusinessJsonLd />
+        <Motion />
       </body>
     </html>
   );

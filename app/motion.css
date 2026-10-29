@@ -1,0 +1,172 @@
+/*
+ * Retro motion: '70s–'80s pit boards and timing towers. Everything moves in hard
+ * steps (steps()) instead of smooth easing, nothing bounces, and nothing runs when
+ * the visitor prefers reduced motion. Colors and sizes come from tokens.css.
+ */
+
+/* ------------------------------------------------------------------ */
+/* Split-flap text (components/FlapText.tsx)                           */
+/* ------------------------------------------------------------------ */
+.flap {
+  position: relative;
+  display: inline-block;
+}
+.flap-on .flap-final {
+  visibility: hidden;
+}
+.flap-live {
+  position: absolute;
+  inset: 0;
+  white-space: nowrap;
+}
+
+/* ------------------------------------------------------------------ */
+/* Ticker (components/Ticker.tsx)                                      */
+/* ------------------------------------------------------------------ */
+.ms-ticker {
+  overflow: hidden;
+  border-block: 1px solid var(--line);
+  padding-block: var(--space-3);
+}
+.ms-ticker-track {
+  display: flex;
+  width: max-content;
+}
+.ms-ticker-run {
+  display: flex;
+  flex: none;
+}
+.ms-ticker-item {
+  font-family: var(--font-display), system-ui, sans-serif;
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  padding-inline: var(--space-6);
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-6);
+}
+.ms-ticker-item::after {
+  content: "";
+  width: var(--stripe-weight);
+  height: var(--stripe-weight);
+  background: var(--stripe-1);
+  margin-left: var(--space-6);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .ms-ticker-track {
+    animation: ms-ticker 48s linear infinite;
+  }
+  .ms-ticker:hover .ms-ticker-track {
+    animation-play-state: paused;
+  }
+
+  /* ---------------------------------------------------------------- */
+  /* Scroll reveals (components/Motion.tsx adds .rv, then .rv-in)      */
+  /* ---------------------------------------------------------------- */
+
+  /* Cards, photos, list rows: step up into place like a board turning over */
+  .rv {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  .rv.rv-in {
+    opacity: 1;
+    transform: none;
+    transition:
+      opacity 280ms steps(4, end) var(--rv-delay, 0ms),
+      transform 280ms steps(4, end) var(--rv-delay, 0ms);
+  }
+
+  /* Section titles: uncovered left to right in hard steps, like a timing tower */
+  .section-head .rv {
+    opacity: 1;
+    transform: none;
+    clip-path: inset(0 100% 0 0);
+  }
+  .section-head .rv.rv-in {
+    clip-path: inset(0 0 0 0);
+    transition: clip-path 420ms steps(7, end) var(--rv-delay, 0ms);
+  }
+
+  /* Club stripe: painted on from the left, red band first, then the second band */
+  .ms-stripe.rv {
+    opacity: 1;
+    transform: none;
+  }
+  .ms-stripe.rv > span {
+    transform: scaleX(0);
+    transform-origin: left center;
+  }
+  .ms-stripe.rv.rv-in > span {
+    transform: scaleX(1);
+    transition: transform 480ms steps(10, end);
+  }
+  .ms-stripe.rv.rv-in > span + span {
+    transition-delay: 120ms;
+  }
+
+  /* Hero stripe and any [data-paint] stripe: paint on page load, no JS needed */
+  [data-paint] .ms-stripe > span {
+    transform-origin: left center;
+    animation: ms-paint 520ms steps(10, end) 120ms both;
+  }
+  [data-paint] .ms-stripe > span + span {
+    animation-delay: 240ms;
+  }
+
+  /* Hero badge: applied like a decal after the stripe lands. Never rotated (BRAND.md). */
+  [data-stamp] {
+    animation: ms-stamp 240ms steps(3, end) 760ms both;
+  }
+
+  /* Hero kicker: types on like a dot-matrix readout */
+  [data-type] {
+    clip-path: inset(0 100% 0 0);
+    animation: ms-type 600ms steps(14, end) 80ms forwards;
+  }
+
+  /* Buttons: a hard two-step press instead of a smooth fade */
+  .ms-btn {
+    transition:
+      background-color 120ms steps(2, end),
+      color 120ms steps(2, end),
+      transform 120ms steps(2, end);
+  }
+  .ms-btn:active {
+    transform: translateY(1px);
+  }
+}
+
+@keyframes ms-ticker {
+  to {
+    transform: translateX(-50%);
+  }
+}
+@keyframes ms-paint {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+@keyframes ms-stamp {
+  from {
+    opacity: 0;
+    transform: scale(1.12);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+@keyframes ms-type {
+  to {
+    clip-path: inset(0 0 0 0);
+  }
+}
