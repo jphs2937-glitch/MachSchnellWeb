@@ -137,13 +137,13 @@ export const site = {
     {
       id: "grand-prix" as UpgradeId,
       name: "Grand Prix",
-      price: "+$100",
+      price: "+$75",
       description: "Full interior and exterior, leather conditioning, protective wax.",
     },
     {
       id: "concours" as UpgradeId,
       name: "Concours",
-      price: "+$175",
+      price: "+$150",
       description: "Our full collector-car detail with clay bar and premium wax.",
     },
   ],
