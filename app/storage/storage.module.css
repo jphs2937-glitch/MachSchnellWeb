@@ -1,0 +1,66 @@
+/* Storage page. Layout only; every value comes from tokens.css. */
+
+.intro {
+  align-items: center;
+  gap: var(--space-8);
+}
+@media (min-width: 1024px) {
+  .intro {
+    gap: var(--space-12);
+  }
+}
+
+.introText {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-6);
+}
+.introText > :global(.kicker) {
+  margin-bottom: calc(-1 * var(--space-3));
+}
+
+.amenities {
+  margin-top: var(--space-12);
+}
+
+.photoBand {
+  padding-bottom: var(--space-12);
+}
+@media (min-width: 1024px) {
+  .photoBand {
+    padding-bottom: var(--space-16);
+  }
+}
+
+/* Cards in a row share a height so their buttons line up at the bottom */
+.planGrid {
+  align-items: stretch;
+}
+
+.faq {
+  max-width: 880px;
+}
+
+.ctaBody {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-8);
+}
+.ctaText {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+@media (min-width: 900px) {
+  .ctaBody {
+    flex-direction: row;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: var(--space-12);
+  }
+  .ctaBody > :last-child {
+    flex: none;
+  }
+}

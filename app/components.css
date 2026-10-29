@@ -613,3 +613,71 @@
   padding-block: var(--space-6);
   border-top: 1px solid var(--warm-gray);
 }
+
+/* ------------------------------------------------------------------ */
+/* FAQ                                                                 */
+/* ------------------------------------------------------------------ */
+.ms-faq {
+  border-top: 1px solid var(--line-strong);
+}
+.ms-faq-item {
+  border-bottom: 1px solid var(--line);
+}
+.ms-faq-q {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  padding: var(--space-6) 0;
+  cursor: pointer;
+  list-style: none;
+}
+.ms-faq-q::-webkit-details-marker {
+  display: none;
+}
+.ms-faq-q::marker {
+  content: "";
+}
+.ms-faq-q:hover .title {
+  color: var(--accent-text);
+}
+.ms-faq-q .title {
+  transition: color 150ms ease-out;
+}
+.ms-faq-q:focus-visible {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 2px;
+}
+/* Plus drawn with two 2px ink bars; the vertical bar fades out when open */
+.ms-faq-icon {
+  position: relative;
+  flex: none;
+  width: 16px;
+  height: 16px;
+}
+.ms-faq-icon::before,
+.ms-faq-icon::after {
+  content: "";
+  position: absolute;
+  background: var(--ink);
+}
+.ms-faq-icon::before {
+  left: 0;
+  right: 0;
+  top: 7px;
+  height: 2px;
+}
+.ms-faq-icon::after {
+  top: 0;
+  bottom: 0;
+  left: 7px;
+  width: 2px;
+  transition: opacity 150ms ease-out;
+}
+.ms-faq-item[open] .ms-faq-icon::after {
+  opacity: 0;
+}
+.ms-faq-a {
+  padding-bottom: var(--space-6);
+  padding-right: var(--space-8);
+}

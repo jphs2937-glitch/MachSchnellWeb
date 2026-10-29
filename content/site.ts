@@ -70,6 +70,12 @@ export const site = {
     intro:
       "Drives, cars and coffee, and evenings at the garage. The calendar opens to members first.",
     seoDescription: "Mach Schnell club events in Houston. Drives, meets and evenings at the garage.",
+    comingSoon: {
+      kicker: "Calendar",
+      title: "Coming soon",
+      text: "The first dates go to members. Join now and you hear about every drive and meet before anyone else.",
+      cta: { label: "Become a member", href: "/join" },
+    },
   },
 
   footer: {
@@ -314,12 +320,20 @@ export const site = {
       "Climate-controlled, secure car storage in Houston from $300/month. Battery tender and car cover included. Plans with monthly detailing.",
     kicker: "Storage · Houston",
     title: "Car storage",
+    /** The title broken by hand for the wide display face. */
+    titleLines: ["Car", "storage"],
+    amenitiesTitle: "What's included",
     lead: "A climate-controlled, gated, camera-monitored garage for luxury and collector cars. Every car goes on a battery tender, under a cover, and stays ready to drive.",
     introPhoto: { src: "", alt: "Cars under covers on the storage floor", caption: "Storage floor" },
     plansKicker: "Memberships",
     plansTitle: "Three plans",
     upgradesLabel: "Per detail upgrades",
     faqTitle: "Questions",
+    plansLink: { label: "See the plans", href: "#plans" },
+    finalCta: {
+      title: "Reserve your space",
+      text: "Spaces are limited. Tell us about your car and we'll call you within one business day.",
+    },
     betweenPhotos: [
       { src: "", alt: "Close-up of a battery tender connected to a stored car", caption: "Battery tender" },
       { src: "", alt: "Security camera over the storage floor", caption: "Security" },
@@ -335,6 +349,7 @@ export const site = {
     lead: "Performed at our climate-controlled facility by a professional detailer.",
     packagesKicker: "Packages",
     packagesTitle: "Four packages",
+    membersLink: { label: "Storage plans", href: "/storage" },
     photos: [
       { src: "", alt: "Hand washing a car's exterior", caption: "Hand wash" },
       { src: "", alt: "Leather seat being conditioned", caption: "Interior" },
@@ -348,6 +363,21 @@ export const site = {
     kicker: "Gallery",
     title: "In the garage",
     lead: "The floor, the work and the cars.",
+    /** Lightbox labels. The tile label reads "Open photo: <alt>". */
+    lightbox: {
+      openLabel: "Open photo",
+      prev: "Prev",
+      next: "Next",
+      close: "Close",
+    },
+  },
+
+  notFound: {
+    seoTitle: "Page not found",
+    kicker: "Error · 404",
+    title: "Wrong turn",
+    text: "This page isn't on the route. Head back to the start.",
+    cta: { label: "Back to home", href: "/" },
   },
 
   join: {
@@ -360,8 +390,64 @@ export const site = {
     successMessage: "Request received. We'll call you within one business day.",
     submitLabel: "Send request",
     errorMessage: "Something went wrong sending your request. Try again, or call us.",
+    sendingLabel: "Sending",
+    stepsTitle: "How it works",
+    steps: [
+      "Send this form. It takes two minutes.",
+      "We call you within one business day.",
+      "We confirm your plan, your space and a start date.",
+    ],
+    /** Labels, help text and error messages on the membership form. */
+    form: {
+      title: "Membership request",
+      requiredNote: "Fields marked * are required.",
+      requiredLabel: "required",
+      optionalLabel: "Optional",
+      name: "Name",
+      email: "Email",
+      phone: "Phone",
+      phoneHelp: "We call this number to confirm your space.",
+      carLegend: "Car",
+      year: "Year",
+      make: "Make",
+      model: "Model",
+      planLegend: "Plan",
+      packageLegend: "Detailing package",
+      packageHelp: "Applies to every detail in your plan. You can change it later.",
+      perDetail: "/detail",
+      packageShown: "Detailing package options shown.",
+      packageHidden: "Detailing package options hidden.",
+      startDate: "Desired start date",
+      message: "Message",
+      messageHelp: "Anything we should know about the car, or the best time to call.",
+      honeypot: "Company (leave this empty)",
+      errorPrefix: "Error:",
+      summaryTitle: "Check the form",
+      summaryIntro: "Fix these and send again:",
+      errors: {
+        name: "Enter your name.",
+        email: "Enter a valid email address, like name@example.com.",
+        phone: "Enter a phone number we can call.",
+        year: "Enter the year as four digits, like 1973.",
+        make: "Enter the make.",
+        model: "Enter the model.",
+        plan: "Choose a plan.",
+        package: "Choose a detailing package.",
+        startDate: "Choose a start date from today on.",
+        tooLong: "Keep this under {max} characters.",
+      },
+    },
+    /** The email the club receives for each request. */
+    teamEmail: {
+      heading: "New member request",
+      submittedLabel: "Submitted",
+      notGiven: "Not given",
+    },
     confirmationEmail: {
       subject: "Mach Schnell · Request received",
+      greeting: "Hello {name},",
+      planLine: "Plan requested: {plan}.",
+      packageLine: "Detailing package: {package}.",
       lines: [
         "Your membership request is in.",
         "We'll call you within one business day to confirm your space and start date.",

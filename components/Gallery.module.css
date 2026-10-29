@@ -1,0 +1,113 @@
+/* Grid: 2 columns from 360px, 3 at 768px, 4 at 1100px+ */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-3);
+  margin: 0;
+}
+@media (min-width: 768px) {
+  .grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--space-4);
+  }
+}
+@media (min-width: 1100px) {
+  .grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+.tile {
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  border-radius: var(--radius-md);
+  background: transparent;
+  cursor: zoom-in;
+  transition: opacity 150ms ease-out;
+}
+.tile:hover {
+  opacity: 0.85;
+}
+
+/* Lightbox */
+.dialog {
+  width: min(100% - 2 * var(--space-4), 1100px);
+  max-width: none;
+  max-height: calc(100dvh - 2 * var(--space-4));
+  padding: 0;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  overflow: auto;
+  overscroll-behavior: contain;
+}
+.dialog[open] {
+  animation: fade 180ms ease-out;
+}
+/* ::backdrop only inherits custom properties in recent browsers; the literal after the comma
+   is a fallback equal to --black for older ones. */
+.dialog::backdrop {
+  background: var(--black, #121212);
+  opacity: 0.92;
+  animation: fade 180ms ease-out;
+}
+@keyframes fade {
+  from {
+    opacity: 0;
+  }
+}
+
+.panel {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  padding: var(--space-4);
+}
+@media (min-width: 768px) {
+  .panel {
+    padding: var(--space-6);
+  }
+}
+
+.top {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.figure {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+/* 4:3 stage, capped so the controls stay on screen */
+.stage {
+  position: relative;
+  width: min(100%, calc((100dvh - 260px) * 4 / 3));
+  min-width: min(100%, 240px);
+  aspect-ratio: 4 / 3;
+  margin-inline: auto;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  background: var(--surface-sunken);
+}
+
+.caption {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-2) var(--space-4);
+}
+
+.nav {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-3);
+}
+
+.control {
+  min-height: 44px;
+  min-width: 44px;
+}
