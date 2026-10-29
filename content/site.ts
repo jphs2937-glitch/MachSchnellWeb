@@ -23,7 +23,6 @@ export type Photo = {
 export type PlanId = "storage" | "storage-1-detail" | "storage-2-details";
 export type UpgradeId = "pit-stop" | "grand-prix" | "concours";
 
-const PHONE_PLACEHOLDER = "PHONE_PLACEHOLDER"; // TODO: detailing phone number, e.g. "(713) 555-0142"
 
 export const site = {
   name: "Mach Schnell Automotive Club",
@@ -34,7 +33,7 @@ export const site = {
 
   contact: {
     /** Shown as written. The tel: link is built from its digits automatically. */
-    phone: PHONE_PLACEHOLDER,
+    phone: "(832) 804-8410",
     /** Club inbox. Membership requests are sent here and sent from here. */
     email: "info@mach-schnell.com",
     address: {
@@ -49,8 +48,8 @@ export const site = {
     directionsUrl:
       "https://www.google.com/maps/dir/?api=1&destination=9225+Rasmus+Dr,+Houston,+TX+77063",
     instagram: {
-      handle: "@machschnell", // TODO: confirm Instagram handle
-      url: "https://www.instagram.com/", // TODO: full Instagram profile URL
+      handle: "@machschnell.htx",
+      url: "https://www.instagram.com/machschnell.htx/",
     },
   },
 
