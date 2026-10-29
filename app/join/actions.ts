@@ -14,7 +14,7 @@ import {
   type MembershipFormState,
 } from "@/lib/membership";
 
-const DEFAULT_FROM = "Mach Schnell <onboarding@resend.dev>";
+const DEFAULT_FROM = `${site.shortName} <${site.contact.email}>`;
 
 /** Server Action for the /join membership form (used with useActionState). */
 export async function submitMembership(_prev: MembershipFormState, formData: FormData): Promise<MembershipFormState> {
@@ -38,19 +38,19 @@ export async function submitMembership(_prev: MembershipFormState, formData: For
   const confirmation = buildConfirmationEmail(request);
 
   const apiKey = process.env.RESEND_API_KEY;
-  const to = process.env.MEMBERSHIP_TO_EMAIL;
+  const to = process.env.MEMBERSHIP_TO_EMAIL || site.contact.email;
   const from = process.env.MEMBERSHIP_FROM_EMAIL || DEFAULT_FROM;
 
   if (!apiKey || !to) {
     if (process.env.NODE_ENV !== "production") {
       console.info(
-        "[join] RESEND_API_KEY or MEMBERSHIP_TO_EMAIL is not set. Email not sent.\n" +
-          `--- To: ${to ?? "(MEMBERSHIP_TO_EMAIL)"} · Reply-To: ${request.email}\n--- Subject: ${team.subject}\n${team.text}\n` +
+        "[join] RESEND_API_KEY is not set. Email not sent.\n" +
+          `--- To: ${to} · Reply-To: ${request.email}\n--- Subject: ${team.subject}\n${team.text}\n` +
           `--- To: ${request.email}\n--- Subject: ${confirmation.subject}\n${confirmation.text}`,
       );
       return success;
     }
-    console.error("[join] RESEND_API_KEY or MEMBERSHIP_TO_EMAIL is not set.");
+    console.error("[join] RESEND_API_KEY is not set.");
     return { status: "error", fieldErrors: {}, formError: site.join.errorMessage, values, submittedAt };
   }
 

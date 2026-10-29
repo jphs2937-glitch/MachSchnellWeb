@@ -57,7 +57,7 @@ Where things live in the file:
 | You want to change | Look for |
 |---|---|
 | Phone number | `PHONE_PLACEHOLDER` near the top (the `tel:` link is built from it automatically) |
-| Address, map, Instagram | `contact` |
+| Address, map, Instagram, club email | `contact` |
 | Top navigation | `nav`, `cta` |
 | Turn on the Events page | `events.enabled` → `true` (adds the `EVENTS` link, makes `/events` indexable and adds it to the sitemap) |
 | Storage plans and prices | `plans` |
@@ -114,7 +114,7 @@ All of these are in `content/site.ts`, marked `// TODO:`.
 | FAQ: vehicle sizes | `storageFaq[3].a` | placeholder answer |
 | All photos | every `src: ""` | placeholder boxes |
 
-Also set before launch (environment variables, not in the content file): `RESEND_API_KEY`, `MEMBERSHIP_TO_EMAIL`, `MEMBERSHIP_FROM_EMAIL`, `NEXT_PUBLIC_SITE_URL`.
+Also before launch: add `RESEND_API_KEY` in Vercel and verify `mach-schnell.com` in Resend.
 
 ---
 
@@ -124,10 +124,10 @@ Copy `.env.example` to `.env.local` for local development. On Vercel, set them u
 
 | Variable | Required | What it is |
 |---|---|---|
-| `RESEND_API_KEY` | Yes in production | API key from https://resend.com/api-keys |
-| `MEMBERSHIP_TO_EMAIL` | Yes in production | Inbox that receives new member requests |
-| `MEMBERSHIP_FROM_EMAIL` | Recommended | Sender, e.g. `Mach Schnell <members@your-domain.com>`. Must be on a domain verified in Resend. Defaults to `Mach Schnell <onboarding@resend.dev>`, which Resend only delivers to your own account email, so applicant confirmations need a verified domain. |
-| `NEXT_PUBLIC_SITE_URL` | Yes in production | Public URL, e.g. `https://your-domain.com`. Used for canonical links, the sitemap and social previews. |
+| `RESEND_API_KEY` | **Yes** | API key from https://resend.com/api-keys. Without it the live form shows an error. |
+| `MEMBERSHIP_TO_EMAIL` | No | Inbox for new member requests. Defaults to `contact.email` in `content/site.ts` (`info@mach-schnell.com`). |
+| `MEMBERSHIP_FROM_EMAIL` | No | Sender. Defaults to `Mach Schnell <info@mach-schnell.com>`. The domain `mach-schnell.com` must be verified in Resend or sends fail. |
+| `NEXT_PUBLIC_SITE_URL` | No | Public URL for canonical links, sitemap and social previews. On Vercel it defaults to the production domain. |
 
 What the form sends:
 
@@ -138,13 +138,13 @@ What the form sends:
 
 ## Deploy to Vercel
 
-1. Push this repository to GitHub (already done if you are reading this there).
-2. In Vercel: **Add New → Project → Import** the `MachSchnellWeb` repository. Framework preset: **Next.js** (auto-detected). No build settings to change.
-3. Add the environment variables above (Production and Preview).
-4. Click **Deploy**.
-5. In Resend, verify the sending domain (**Domains → Add domain**, add the DNS records it shows), then set `MEMBERSHIP_FROM_EMAIL` to an address on that domain and redeploy.
-6. Custom domain: Vercel **Project → Settings → Domains → Add**, then point DNS as instructed. Update `NEXT_PUBLIC_SITE_URL` and redeploy.
-7. Submit a test request on `/join` and confirm both emails arrive.
+The Vercel project `machschnellweb` is connected to this repository and serves **https://mach-schnell.com**. Framework (Next.js) and Node version (24) are pinned in `vercel.json` and `package.json`.
+
+1. In Resend: **Domains → Add domain → `mach-schnell.com`**. Add the DNS records it shows in Vercel (**Domains → mach-schnell.com → DNS Records**) and wait for Resend to show the domain as verified.
+2. In Resend: **API Keys → Create**, with sending access.
+3. In Vercel: **machschnellweb → Settings → Environment Variables**, add `RESEND_API_KEY` (Production and Preview, type Sensitive).
+4. Redeploy: **Deployments → latest production deployment → ⋯ → Redeploy**. Environment variables only apply to new deployments.
+5. Submit a test request on https://mach-schnell.com/join and confirm both emails arrive.
 
 Every push to the main branch redeploys production; other branches get preview URLs.
 

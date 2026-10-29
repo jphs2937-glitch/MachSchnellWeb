@@ -35,6 +35,8 @@ export const site = {
   contact: {
     /** Shown as written. The tel: link is built from its digits automatically. */
     phone: PHONE_PLACEHOLDER,
+    /** Club inbox. Membership requests are sent here and sent from here. */
+    email: "info@mach-schnell.com",
     address: {
       street: "9225 Rasmus Dr",
       city: "Houston",
