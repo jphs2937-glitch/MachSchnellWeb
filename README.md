@@ -1,1 +1,186 @@
-# MachSchnellWeb
+# Mach Schnell Automotive Club · Website
+
+Website for Mach Schnell Automotive Club, a private, climate-controlled car storage and detailing club in Houston.
+
+Next.js (App Router) + TypeScript, plain CSS with brand tokens, deployed on Vercel. Membership requests are emailed through Resend.
+
+---
+
+## Run it locally
+
+Requires Node.js 20.9 or newer.
+
+```bash
+npm install
+```
+
+```bash
+cp .env.example .env.local
+```
+
+```bash
+npm run dev
+```
+
+Open http://localhost:3000.
+
+Without `RESEND_API_KEY` in `.env.local`, the membership form still works in development: it prints the emails it would have sent to the terminal instead of sending them.
+
+Other commands:
+
+| Command | What it does |
+|---|---|
+| `npm run build` | Production build (run this before deploying to catch errors) |
+| `npm run start` | Serve the production build |
+| `npm run typecheck` | TypeScript check |
+| `npm run tokens` | Regenerate `app/tokens.css` from `brand-kit/tokens.json` |
+
+---
+
+## Edit the content: `content/site.ts`
+
+Every price, phone number, address, package, FAQ answer, photo and line of copy is in **one file**: `content/site.ts`. Components never hard-code business content.
+
+1. Open `content/site.ts` (on GitHub: open the file, click the pencil icon).
+2. Change the text between the quotes. Keep the quotes, commas and brackets.
+3. Save (on GitHub: **Commit changes**). Vercel redeploys automatically.
+
+Rules of thumb:
+
+- Write in sentence case. Headlines, buttons and nav are uppercased by the design, so `"Become a member"` shows as `BECOME A MEMBER`.
+- Brand voice: short, direct, dry. No exclamation marks, no emoji, no hype words. Separate items with ` · `. Times in 24-hour format (`07:00`).
+- Never name car manufacturers. Say "luxury and collector cars".
+- Search the file for `TODO:` to find every placeholder.
+
+Where things live in the file:
+
+| You want to change | Look for |
+|---|---|
+| Phone number | `PHONE_PLACEHOLDER` near the top (the `tel:` link is built from it automatically) |
+| Address, map, Instagram | `contact` |
+| Top navigation | `nav`, `cta` |
+| Turn on the Events page | `events.enabled` → `true` (adds the `EVENTS` link, makes `/events` indexable and adds it to the sitemap) |
+| Storage plans and prices | `plans` |
+| Grand Prix / Concours upgrade prices | `upgrades` |
+| Storage FAQ | `storageFaq` |
+| Detailing packages, prices, inclusions | `packages` |
+| Phone call-to-action text, members note | `detailing` |
+| Page copy | `home`, `storage`, `detailingPage`, `gallery`, `join` |
+| Gallery photos | `photos` |
+
+---
+
+## Add photos
+
+No real photos exist yet. Every photo spot shows a labeled placeholder (a dove-gray box with the club stripe and a caption like `PHOTO · STORAGE FLOOR`) until it gets a real file.
+
+1. Put the image in `public/photos/` (JPG or WebP, at least 2000px wide for the hero, 1600px for others). Use simple lowercase file names: `storage-floor-wide.jpg`.
+2. In `content/site.ts`, find the matching entry and set `src`:
+
+   ```ts
+   heroPhoto: { src: "/photos/storage-floor-wide.jpg", alt: "Members' cars parked on the climate-controlled storage floor", caption: "Storage floor wide" },
+   ```
+
+3. Write a real `alt` describing the photo. It is read by screen readers and search engines.
+
+**Gallery:** add one line to `photos` in `content/site.ts`. The first six also appear in the strip on the home page.
+
+```ts
+{ src: "/photos/morning-lineup.jpg", alt: "Members' cars lined up outside the garage at sunrise", caption: "Morning lineup" },
+```
+
+Photos are cropped to fixed shapes: 16:9 for the home hero, 4:3 for cards and section photos, 1:1 in the gallery. Next.js resizes and compresses them automatically.
+
+Brand imagery rules (BRAND.md): real club cars, shot low and side-on, natural light, warm grade. No stock photos, no AI-generated cars, no type over busy photos, no visible manufacturer badges as a subject.
+
+---
+
+## Placeholders to fill in (TODO list)
+
+All of these are in `content/site.ts`, marked `// TODO:`.
+
+| Placeholder | Where | Current value |
+|---|---|---|
+| Detailing phone number | `PHONE_PLACEHOLDER` constant | `PHONE_PLACEHOLDER` |
+| Storage + 1 Detail monthly price | `plans` → `storage-1-detail` → `price` | `$XXX` |
+| Storage + 2 Details monthly price | `plans` → `storage-2-details` → `price` | `$XXX` |
+| Grand Prix upgrade price per detail | `upgrades` → `grand-prix` → `price` | `+$XX` |
+| Concours upgrade price per detail | `upgrades` → `concours` → `price` | `+$XX` |
+| Instagram handle | `contact.instagram.handle` | `@machschnell` (unconfirmed) |
+| Instagram URL | `contact.instagram.url` | `https://www.instagram.com/` |
+| FAQ: access to your car | `storageFaq[0].a` | placeholder answer |
+| FAQ: insurance | `storageFaq[1].a` | placeholder answer |
+| FAQ: minimum term | `storageFaq[2].a` | placeholder answer |
+| FAQ: vehicle sizes | `storageFaq[3].a` | placeholder answer |
+| All photos | every `src: ""` | placeholder boxes |
+
+Also set before launch (environment variables, not in the content file): `RESEND_API_KEY`, `MEMBERSHIP_TO_EMAIL`, `MEMBERSHIP_FROM_EMAIL`, `NEXT_PUBLIC_SITE_URL`.
+
+---
+
+## Environment variables
+
+Copy `.env.example` to `.env.local` for local development. On Vercel, set them under **Project → Settings → Environment Variables**.
+
+| Variable | Required | What it is |
+|---|---|---|
+| `RESEND_API_KEY` | Yes in production | API key from https://resend.com/api-keys |
+| `MEMBERSHIP_TO_EMAIL` | Yes in production | Inbox that receives new member requests |
+| `MEMBERSHIP_FROM_EMAIL` | Recommended | Sender, e.g. `Mach Schnell <members@your-domain.com>`. Must be on a domain verified in Resend. Defaults to `Mach Schnell <onboarding@resend.dev>`, which Resend only delivers to your own account email, so applicant confirmations need a verified domain. |
+| `NEXT_PUBLIC_SITE_URL` | Yes in production | Public URL, e.g. `https://your-domain.com`. Used for canonical links, the sitemap and social previews. |
+
+What the form sends:
+
+- To `MEMBERSHIP_TO_EMAIL`, subject `New member request: <Name> · <Year Make Model> · <Plan>`, with every field. Reply goes straight to the applicant.
+- To the applicant, a short confirmation in the brand voice.
+
+---
+
+## Deploy to Vercel
+
+1. Push this repository to GitHub (already done if you are reading this there).
+2. In Vercel: **Add New → Project → Import** the `MachSchnellWeb` repository. Framework preset: **Next.js** (auto-detected). No build settings to change.
+3. Add the environment variables above (Production and Preview).
+4. Click **Deploy**.
+5. In Resend, verify the sending domain (**Domains → Add domain**, add the DNS records it shows), then set `MEMBERSHIP_FROM_EMAIL` to an address on that domain and redeploy.
+6. Custom domain: Vercel **Project → Settings → Domains → Add**, then point DNS as instructed. Update `NEXT_PUBLIC_SITE_URL` and redeploy.
+7. Submit a test request on `/join` and confirm both emails arrive.
+
+Every push to the main branch redeploys production; other branches get preview URLs.
+
+---
+
+## Project structure
+
+```
+brand-kit/            Approved brand kit (source of truth). Do not edit; changes go to the board.
+content/site.ts       ALL business content
+app/
+  tokens.css          Brand tokens as CSS variables (generated from brand-kit/tokens.json)
+  globals.css         Base styles, layout helpers, type classes
+  components.css      Shared component styles (stripe, buttons, nav, cards, footer)
+  fonts.ts            Saira Expanded (--font-display) and Saira (--font-text), self-hosted
+  layout.tsx          Header, footer, skip link, LocalBusiness JSON-LD
+  page.tsx            Home
+  storage/ detailing/ gallery/ join/ events/
+  sitemap.ts robots.ts opengraph-image.tsx
+components/           NavBar, Footer, StripeRule, Button, PlanCard, PackageCard, PhotoSlot,
+                      PhoneCTA, AmenityList, MapEmbed, MembershipForm, Gallery, Faq
+lib/                  Phone links, site URL, nav links, membership form schema and emails
+public/brand/         Logos copied from brand-kit/logos (used as files, never redrawn)
+public/photos/        Real photos go here
+scripts/              Token generator, screenshot script
+```
+
+## Brand
+
+The brand kit in `brand-kit/` is approved by the board. `BRAND.md` and `tokens.json` are the source of truth for every color, font, spacing value, logo rule and voice rule. To change a token, change `brand-kit/tokens.json` (with board approval) and run `npm run tokens`.
+
+Key rules the code enforces:
+
+- Colors only through tokens: bone ground, black ink, Signal Red at about 10% of any view. Small red text uses `accent-text`.
+- Two themes: Day (default) and Night via `data-theme="night"` on any section.
+- Saira Expanded, uppercase, for headlines, nav, buttons and kickers. Saira for body. No italics.
+- The club stripe (red over black, 8px bands, 4px gap; bone instead of black on dark) is the main graphic.
+- Borders, not shadows. Radii: 0 stripes, 3px buttons, 8px cards and photos, round only for the badge.
+- 2px Signal Red focus ring on every interactive element. Reduced motion respected.
