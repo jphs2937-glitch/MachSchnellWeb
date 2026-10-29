@@ -97,19 +97,13 @@ Brand imagery rules (BRAND.md): real club cars, shot low and side-on, natural li
 
 ## Placeholders to fill in (TODO list)
 
-All of these are in `content/site.ts`, marked `// TODO:`.
+Prices, phone, Instagram and FAQ answers are all set. What is left:
 
 | Placeholder | Where | Current value |
 |---|---|---|
-| Grand Prix upgrade price per detail | `upgrades` → `grand-prix` → `price` | `+$XX` |
-| Concours upgrade price per detail | `upgrades` → `concours` → `price` | `+$XX` |
-| FAQ: access to your car | `storageFaq[0].a` | placeholder answer |
-| FAQ: insurance | `storageFaq[1].a` | placeholder answer |
-| FAQ: minimum term | `storageFaq[2].a` | placeholder answer |
-| FAQ: vehicle sizes | `storageFaq[3].a` | placeholder answer |
 | All photos | every `src: ""` | placeholder boxes |
 
-Also before launch: add `RESEND_API_KEY` in Vercel and verify `mach-schnell.com` in Resend.
+Email is live: `mach-schnell.com` is verified in Resend and `RESEND_API_KEY` is set in Vercel.
 
 ---
 
