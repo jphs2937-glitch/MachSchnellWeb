@@ -1,4 +1,5 @@
 import type { Package } from "@/content/site";
+import { FlapText } from "./FlapText";
 import { StripeRule } from "./StripeRule";
 
 type Props = {
@@ -14,9 +15,11 @@ export function PackageCard({ pkg, compact = false, headingLevel: H = "h3" }: Pr
     <article className={["ms-card", "ms-package", compact && "ms-package-compact"].filter(Boolean).join(" ")}>
       <div className="ms-package-top">
         <span className="ms-plate" aria-label={`Package ${pkg.number}`}>
-          {pkg.number}
+          <FlapText text={pkg.number} />
         </span>
-        <p className="ms-package-price">{pkg.price}</p>
+        <p className="ms-package-price">
+          <FlapText text={pkg.price} />
+        </p>
       </div>
       <div>
         <H className="headline">{pkg.name}</H>

@@ -12,6 +12,7 @@ import { PlanCard } from "@/components/PlanCard";
 import { SectionHead } from "@/components/SectionHead";
 import { StripeRule } from "@/components/StripeRule";
 import { TextLink } from "@/components/TextLink";
+import { Ticker } from "@/components/Ticker";
 import styles from "./home.module.css";
 
 const home = site.home;
@@ -68,7 +69,9 @@ export default function Home() {
       {/* 1 · Hero */}
       <section className={styles.hero} aria-labelledby="home-title">
         <div className="container">
-          <span className="kicker">{home.kicker}</span>
+          <span className="kicker" data-type>
+            {home.kicker}
+          </span>
           <h1 id="home-title" className={`display-xl lines ${styles.heroTitle}`}>
             {titleWords.map((w, i) => (
               <span key={w}>{i > 0 ? ` ${w}` : w}</span>
@@ -76,11 +79,11 @@ export default function Home() {
           </h1>
         </div>
 
-        <div className={styles.stripeBand}>
+        <div className={styles.stripeBand} data-paint>
           <StripeRule bleed />
           <div className={`container ${styles.badgeWrap}`}>
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/brand/ms-badge.svg" alt="" aria-hidden="true" width={224} height={224} className={styles.badge} />
+            <img src="/brand/ms-badge.svg" alt="" aria-hidden="true" width={224} height={224} className={styles.badge} data-stamp />
           </div>
         </div>
 
@@ -100,6 +103,8 @@ export default function Home() {
           <PhotoSlot photo={home.heroPhoto} ratio="16/9" sizes={FULL} priority />
         </div>
       </section>
+
+      <Ticker />
 
       {/* 2 · What we do */}
       <section className="section" aria-labelledby="what-we-do">

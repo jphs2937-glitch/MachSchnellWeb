@@ -245,6 +245,15 @@ export const site = {
     lead: "We store your car, detail it, and keep it ready to drive.",
     primaryCta: { label: "Become a member", href: "/join" },
     secondaryCta: { label: "See storage", href: "/storage" },
+    /** Pit-wall ticker under the hero. Short items; they scroll in a loop. */
+    ticker: [
+      "Climate controlled",
+      "Secure · Gated · Camera-monitored",
+      "Battery tender and car cover included",
+      "Detailing from $125",
+      "Storage from $300/month",
+      "Houston · Est. 2026",
+    ],
     heroPhoto: { src: "", alt: "Members' cars parked on the climate-controlled storage floor", caption: "Storage floor wide" },
 
     whatWeDo: {
