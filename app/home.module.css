@@ -5,12 +5,12 @@
 /* ------------------------------------------------------------------ */
 .hero {
   padding-top: var(--space-12);
-  padding-bottom: var(--space-12);
+  padding-bottom: var(--space-8);
 }
 @media (min-width: 1024px) {
   .hero {
     padding-top: var(--space-16);
-    padding-bottom: var(--space-16);
+    padding-bottom: var(--space-12);
   }
 }
 
@@ -40,8 +40,8 @@
    board), each one lands in signal red, then settles to ink. --i is the letter index. */
 @media (prefers-reduced-motion: no-preference) {
   .letter {
-    animation: letter-type 700ms ease-out both;
-    animation-delay: calc(450ms + var(--i) * 160ms);
+    animation: letter-type 500ms ease-out both;
+    animation-delay: calc(200ms + var(--i) * 85ms);
   }
 }
 @keyframes letter-type {
@@ -65,13 +65,13 @@
   --car-width: min(46vw, 230px);
   position: relative;
   margin-top: calc(var(--car-width) * 0.2 + var(--space-4));
-  margin-bottom: var(--space-8);
+  margin-bottom: var(--space-6);
 }
 @media (min-width: 900px) {
   .stripeBand {
     --car-width: min(34vw, 440px);
     margin-top: var(--space-4);
-    margin-bottom: var(--space-12);
+    margin-bottom: var(--space-8);
   }
 }
 

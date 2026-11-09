@@ -132,21 +132,21 @@
   /* ---------------------------------------------------------------- */
   [data-paint] .ms-stripe > span {
     transform-origin: left center;
-    animation: ms-paint 1100ms var(--ease-in-out) 100ms both;
+    animation: ms-paint 750ms var(--ease-in-out) 80ms both;
   }
   [data-paint] .ms-stripe > span + span {
-    animation-delay: 260ms;
+    animation-delay: 180ms;
   }
 
   /* The coupé drives in from the left while the name types */
   [data-drive] {
-    animation: ms-drive 2600ms var(--ease-out) 300ms both;
+    animation: ms-drive 1500ms var(--ease-out) 150ms both;
   }
 
   /* Kicker: types on like a dot-matrix readout */
   [data-type] {
     clip-path: inset(0 100% 0 0);
-    animation: ms-type 1100ms steps(24, end) 100ms forwards;
+    animation: ms-type 650ms steps(24, end) 50ms forwards;
   }
 
   /* The name types on letter by letter: see .letter in app/home.module.css */
