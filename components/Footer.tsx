@@ -13,7 +13,7 @@ export function Footer() {
         <div className="ms-footer-brand">
           <Link href="/" aria-label={`${site.shortName} home`} className="ms-footer-logo">
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/brand/ms-lockup-on-light.svg" alt={site.name} width={247} height={80} loading="lazy" />
+            <img src="/brand/ms-logo-on-light.svg" alt={site.name} width={220} height={70} loading="lazy" />
           </Link>
         </div>
 

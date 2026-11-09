@@ -34,6 +34,7 @@ Other commands:
 | `npm run start` | Serve the production build |
 | `npm run typecheck` | TypeScript check |
 | `npm run tokens` | Regenerate `app/tokens.css` from `brand-kit/tokens.json` |
+| `npm run logos` | Regenerate the logo SVGs from `brand-kit/logo-2026/` (then `NODE_PATH="$(npm root -g)" node scripts/build-logo-png.mjs` for the email logo and app icon PNGs) |
 
 ---
 
@@ -156,7 +157,7 @@ app/
 components/           NavBar, Footer, StripeRule, Button, PlanCard, PackageCard, PhotoSlot,
                       PhoneCTA, AmenityList, MapEmbed, MembershipForm, Gallery, Faq
 lib/                  Phone links, site URL, nav links, membership form schema and emails
-public/brand/         Logos copied from brand-kit/logos (used as files, never redrawn)
+public/brand/         Logo files generated from brand-kit/logo-2026 (npm run logos), used as files, never redrawn
 public/photos/        Real photos go here
 scripts/              Token generator, screenshot script
 screenshots/          Review screenshots of every page at 360px and 1280px
@@ -190,7 +191,8 @@ The brand kit in `brand-kit/` is approved by the board. `BRAND.md` and `tokens.j
 
 Key rules the code enforces:
 
-- Colors only through tokens: bone ground, black ink, Signal Red at about 10% of any view. Small red text uses `accent-text`.
+- The coupé logo (November 2026) replaces the ring badge and MS mark everywhere: nav, footer, hero, favicon, share image and emails.
+- Colors only through tokens: bone ground, black ink, Signal Red (`#D3202B`, the logo's red) at about 10% of any view. Small red text uses `accent-text`.
 - Two themes: Day (default) and Night via `data-theme="night"` on any section.
 - Saira Expanded, uppercase, for headlines, nav, buttons and kickers. Saira for body. No italics.
 - The club stripe (red over black, 8px bands, 4px gap; bone instead of black on dark) is the main graphic.

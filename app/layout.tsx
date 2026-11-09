@@ -20,7 +20,7 @@ export const metadata: Metadata = {
   description: site.description,
   applicationName: site.name,
   icons: {
-    icon: [{ url: "/brand/ms-mark.svg", type: "image/svg+xml" }],
+    icon: [{ url: "/brand/ms-icon.svg", type: "image/svg+xml" }],
     apple: [{ url: "/apple-icon.png" }],
   },
   openGraph: {

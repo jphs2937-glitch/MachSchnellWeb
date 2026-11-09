@@ -20,7 +20,19 @@ Real examples:
 | MEMBERS ONLY | HILL COUNTRY LOOP | RESERVE A SPOT |
 | CAR OF THE WEEK | NO.12 | (owner handle) |
 
-## Logo
+## Logo update · November 2026
+
+The coupé logo replaces the ring badge, the striped MS mark and the old lockups everywhere. Source: `logo-2026/MachSchnell-logo-final.dc.html`; ready-to-use files are generated into `logo-2026/` by `npm run logos`.
+
+- **Primary:** `ms-logo-on-light.svg` (black ink, red accents) on bone or white; `ms-logo-on-dark.svg` (white ink) on black; `ms-logo-on-red.svg` (white ink, black accents) on red; `ms-logo-one-color.svg` for single-color uses.
+- **Coupé alone:** `ms-car-on-light.svg` / `ms-car-on-dark.svg`. On the website it sits on the club stripe in the hero, as if the stripe were the road.
+- **Icon:** `ms-icon.svg`, the coupé and wordmark on workshop black (`#0B0B0C`). Favicon, app icon, avatar, the nav on phones.
+- **Embroidery:** `ms-embroidery-dark-cap.svg` (white and red thread), `ms-embroidery-light-cap.svg` (black and red), `ms-embroidery-navy.svg` (white only).
+- **Red:** the logo's Rojo carrera `#D3202B` is now `signal-red` for the whole brand (see `tokens.json`).
+- Never redraw, stretch or recolor the logo beyond the variants above. Never name the car's maker or model next to it; it is a coupé.
+- Colors, type, the club stripe and voice below are unchanged. The ring badge and striped MS sections that follow are kept for reference only.
+
+## Logo (2026 launch, superseded)
 
 - **Primary: the ring badge** (Assets › Logos › `ms-badge.svg`, component `Badge`). Black ring with "MACH SCHNELL · AUTOMOTIVE CLUB · EST 2026", bone disc with a `signal-red` inner ring, and the striped MS. Use it at 120px and larger.
 - **Mark: the striped MS disc** (`ms-mark.svg`, `Badge variant="mark"`). Use it for the Instagram avatar, favicon, nav bar and post corners, anywhere the ring text would fall under about 9px.

@@ -11,7 +11,7 @@ export function LocalBusinessJsonLd() {
     name: site.name,
     description: site.description,
     url: siteUrl,
-    logo: `${siteUrl}/brand/ms-badge.svg`,
+    logo: `${siteUrl}/brand/ms-logo-email.png`,
     image: `${siteUrl}/opengraph-image`,
     telephone: phoneE164() ?? site.contact.phone,
     foundingDate: site.established,
