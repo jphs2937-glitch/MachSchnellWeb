@@ -8,6 +8,7 @@ import { PhotoSlot } from "@/components/PhotoSlot";
 import { PlanCard } from "@/components/PlanCard";
 import { SectionHead } from "@/components/SectionHead";
 import { StripeRule } from "@/components/StripeRule";
+import { hasPhoto } from "@/lib/photos";
 import styles from "./storage.module.css";
 
 const page = site.storage;
@@ -34,7 +35,7 @@ export default function StoragePage() {
     <>
       <section className="section" aria-labelledby="storage-title">
         <div className="container">
-          <div className={`grid-2 ${styles.intro}`}>
+          <div className={hasPhoto(page.introPhoto) ? `grid-2 ${styles.intro}` : styles.intro}>
             <div className={styles.introText}>
               <span className="kicker">{page.kicker}</span>
               <h1 id="storage-title" className="display-xl lines">
@@ -50,7 +51,7 @@ export default function StoragePage() {
                 </Button>
               </div>
             </div>
-            <PhotoSlot photo={page.introPhoto} ratio="4/3" sizes={HALF} priority />
+            {hasPhoto(page.introPhoto) && <PhotoSlot photo={page.introPhoto} ratio="4/3" sizes={HALF} priority />}
           </div>
 
           <div className={styles.amenities}>
@@ -60,9 +61,11 @@ export default function StoragePage() {
         </div>
       </section>
 
-      <div className={`container ${styles.photoBand}`}>
-        <PhotoSlot photo={page.betweenPhotos[0]} ratio="16/9" sizes={FULL} />
-      </div>
+      {hasPhoto(page.betweenPhotos[0]) && (
+        <div className={`container ${styles.photoBand}`}>
+          <PhotoSlot photo={page.betweenPhotos[0]} ratio="16/9" sizes={FULL} />
+        </div>
+      )}
 
       <StripeRule bleed />
 
@@ -77,9 +80,11 @@ export default function StoragePage() {
         </div>
       </section>
 
-      <div className={`container ${styles.photoBand}`}>
-        <PhotoSlot photo={page.betweenPhotos[1]} ratio="16/9" sizes={FULL} />
-      </div>
+      {hasPhoto(page.betweenPhotos[1]) && (
+        <div className={`container ${styles.photoBand}`}>
+          <PhotoSlot photo={page.betweenPhotos[1]} ratio="16/9" sizes={FULL} />
+        </div>
+      )}
 
       <StripeRule bleed />
 

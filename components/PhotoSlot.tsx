@@ -1,6 +1,5 @@
 import Image from "next/image";
 import type { Photo } from "@/content/site";
-import { StripeRule } from "./StripeRule";
 
 export type Ratio = "16/9" | "4/3" | "1/1" | "3/4";
 
@@ -14,24 +13,12 @@ type Props = {
   className?: string;
 };
 
-/**
- * A photo at a fixed aspect ratio. When photo.src is empty it renders a labeled
- * placeholder: a dove box with the club stripe and "PHOTO · CAPTION".
- */
+/** A photo at a fixed aspect ratio. Renders nothing until photo.src is set in content/site.ts. */
 export function PhotoSlot({ photo, ratio = "4/3", sizes, priority = false, className }: Props) {
   const cls = ["ms-photo", className].filter(Boolean).join(" ");
   const style = { aspectRatio: ratio.replace("/", " / ") };
 
-  if (!photo.src) {
-    return (
-      <div className={`${cls} ms-photo-placeholder`} style={style} role="img" aria-label={photo.alt} data-theme="day">
-        <StripeRule className="ms-photo-stripe" />
-        <span className="ms-photo-label" aria-hidden="true">
-          Photo · {photo.caption}
-        </span>
-      </div>
-    );
-  }
+  if (!photo.src) return null;
 
   return (
     <div className={cls} style={style}>

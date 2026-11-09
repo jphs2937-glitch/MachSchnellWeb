@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import { notFound } from "next/navigation";
+import { galleryEnabled, galleryPhotos } from "@/lib/photos";
 import { ogImages } from "@/lib/seo";
 import { site } from "@/content/site";
 import { Gallery } from "@/components/Gallery";
@@ -18,10 +20,11 @@ export const metadata: Metadata = {
 };
 
 export default function GalleryPage() {
+  if (!galleryEnabled) notFound();
   return (
     <div className={`container section ${styles.page}`}>
       <SectionHead as="h1" size="xl" kicker={site.gallery.kicker} title={site.gallery.title} lead={site.gallery.lead} />
-      <Gallery photos={site.photos} labels={site.gallery.lightbox} />
+      <Gallery photos={galleryPhotos} labels={site.gallery.lightbox} />
     </div>
   );
 }

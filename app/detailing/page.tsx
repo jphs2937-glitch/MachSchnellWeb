@@ -6,6 +6,7 @@ import { PhoneCTA } from "@/components/PhoneCTA";
 import { PhotoSlot } from "@/components/PhotoSlot";
 import { SectionHead } from "@/components/SectionHead";
 import { TextLink } from "@/components/TextLink";
+import { hasPhoto } from "@/lib/photos";
 import styles from "./detailing.module.css";
 
 const page = site.detailingPage;
@@ -46,9 +47,11 @@ export default function DetailingPage() {
         </div>
       </section>
 
-      <div className={`container ${styles.photoBand}`}>
-        <PhotoSlot photo={page.photos[0]} ratio="16/9" sizes={FULL} />
-      </div>
+      {hasPhoto(page.photos[0]) && (
+        <div className={`container ${styles.photoBand}`}>
+          <PhotoSlot photo={page.photos[0]} ratio="16/9" sizes={FULL} />
+        </div>
+      )}
 
       <section className="section" data-theme="night" aria-labelledby="packages-title">
         <div className="container">
@@ -66,12 +69,15 @@ export default function DetailingPage() {
         </div>
       </section>
 
-      <div className={`container ${styles.photoPair}`}>
-        <div className="grid-2">
-          <PhotoSlot photo={page.photos[1]} ratio="4/3" sizes={HALF} />
-          <PhotoSlot photo={page.photos[2]} ratio="4/3" sizes={HALF} />
+      {page.photos.slice(1).some(hasPhoto) && (
+        <div className={`container ${styles.photoPair}`}>
+          <div className="grid-2">
+            {page.photos.slice(1).filter(hasPhoto).map((p) => (
+              <PhotoSlot key={p.caption} photo={p} ratio="4/3" sizes={HALF} />
+            ))}
+          </div>
         </div>
-      </div>
+      )}
 
       <section className="section">
         <div className="container">
