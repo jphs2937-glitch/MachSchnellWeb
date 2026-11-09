@@ -13,6 +13,7 @@ import { SectionHead } from "@/components/SectionHead";
 import { StripeRule } from "@/components/StripeRule";
 import { TextLink } from "@/components/TextLink";
 import { Ticker } from "@/components/Ticker";
+import { galleryEnabled, galleryPhotos, hasPhoto } from "@/lib/photos";
 import styles from "./home.module.css";
 
 const home = site.home;
@@ -99,9 +100,11 @@ export default function Home() {
           </div>
         </div>
 
-        <div className={`container ${styles.heroPhoto}`}>
-          <PhotoSlot photo={home.heroPhoto} ratio="16/9" sizes={FULL} priority />
-        </div>
+        {hasPhoto(home.heroPhoto) && (
+          <div className={`container ${styles.heroPhoto}`}>
+            <PhotoSlot photo={home.heroPhoto} ratio="16/9" sizes={FULL} priority />
+          </div>
+        )}
       </section>
 
       <Ticker />
@@ -171,36 +174,42 @@ export default function Home() {
         <div className="container">
           <SectionHead id="the-space" kicker={home.space.kicker} title={<Lines text={home.space.title} />} />
           <AmenityList />
-          <div className={`grid-2 ${styles.after}`}>
-            {home.space.photos.map((p) => (
-              <PhotoSlot key={p.caption} photo={p} ratio="4/3" sizes={HALF} />
-            ))}
+          {home.space.photos.some(hasPhoto) && (
+            <div className={`grid-2 ${styles.after}`}>
+              {home.space.photos.filter(hasPhoto).map((p) => (
+                <PhotoSlot key={p.caption} photo={p} ratio="4/3" sizes={HALF} />
+              ))}
+            </div>
+          )}
+        </div>
+      </section>
+
+      {galleryEnabled && (
+        <>
+          <div className="container">
+            <StripeRule bleed />
           </div>
-        </div>
-      </section>
 
-      <div className="container">
-        <StripeRule bleed />
-      </div>
-
-      {/* 6 · Gallery strip */}
-      <section className="section" aria-labelledby="gallery-strip">
-        <div className="container">
-          <SectionHead
-            id="gallery-strip"
-            kicker={home.galleryStrip.kicker}
-            title={<Lines text={home.galleryStrip.title} />}
-            aside={<TextLink href={home.galleryStrip.link.href}>{home.galleryStrip.link.label}</TextLink>}
-          />
-          <ul role="list" className={styles.gallery}>
-            {site.photos.slice(0, 6).map((p) => (
-              <li key={p.caption}>
-                <PhotoSlot photo={p} ratio="1/1" sizes={GALLERY} />
-              </li>
-            ))}
-          </ul>
-        </div>
-      </section>
+          {/* 6 · Gallery strip */}
+          <section className="section" aria-labelledby="gallery-strip">
+            <div className="container">
+              <SectionHead
+                id="gallery-strip"
+                kicker={home.galleryStrip.kicker}
+                title={<Lines text={home.galleryStrip.title} />}
+                aside={<TextLink href={home.galleryStrip.link.href}>{home.galleryStrip.link.label}</TextLink>}
+              />
+              <ul role="list" className={styles.gallery}>
+                {galleryPhotos.slice(0, 6).map((p) => (
+                  <li key={p.caption}>
+                    <PhotoSlot photo={p} ratio="1/1" sizes={GALLERY} />
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </section>
+        </>
+      )}
 
       {/* 7 · Location */}
       <section className={`section ${styles.ruled}`} aria-labelledby="location">

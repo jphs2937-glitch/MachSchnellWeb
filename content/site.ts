@@ -8,15 +8,16 @@
  * Search this file for "TODO:" to find every placeholder that still needs a real value.
  *
  * Photos: put the file in /public/photos/ and set `src` to "/photos/your-file.jpg".
- * Leave `src` empty ("") to show a labeled placeholder box instead.
+ * Leave `src` empty ("") and that photo spot is hidden; the layout closes up around it.
+ * The Gallery page, its nav link and the home gallery strip appear once one gallery photo has a file.
  */
 
 export type Photo = {
-  /** Path under /public, e.g. "/photos/storage-floor.jpg". Empty string shows a placeholder. */
+  /** Path under /public, e.g. "/photos/storage-floor.jpg". Empty string hides the photo. */
   src: string;
   /** Describes the photo for screen readers and search engines. Required. */
   alt: string;
-  /** Short label. Shown on the placeholder box, and under the photo in the gallery lightbox. */
+  /** Short label, shown under the photo in the gallery lightbox. */
   caption: string;
 };
 

@@ -72,7 +72,7 @@ Where things live in the file:
 
 ## Add photos
 
-No real photos exist yet. Every photo spot shows a labeled placeholder (a dove-gray box with the club stripe and a caption like `PHOTO · STORAGE FLOOR`) until it gets a real file.
+No real photos exist yet, so every photo spot is hidden and the pages close up around them. A photo appears as soon as its `src` is set. The **Gallery** page, its nav link and the gallery strip on the home page stay hidden until at least one gallery photo has a file; until then `/gallery` returns 404 and is left out of the sitemap.
 
 1. Put the image in `public/photos/` (JPG or WebP, at least 2000px wide for the hero, 1600px for others). Use simple lowercase file names: `storage-floor-wide.jpg`.
 2. In `content/site.ts`, find the matching entry and set `src`:
@@ -101,7 +101,7 @@ Prices, phone, Instagram and FAQ answers are all set. What is left:
 
 | Placeholder | Where | Current value |
 |---|---|---|
-| All photos | every `src: ""` | placeholder boxes |
+| All photos | every `src: ""` | hidden until set |
 
 Email is live: `mach-schnell.com` is verified in Resend and `RESEND_API_KEY` is set in Vercel.
 
@@ -164,7 +164,7 @@ screenshots/          Review screenshots of every page at 360px and 1280px
 
 ## Screenshots
 
-`screenshots/` holds each page at mobile (360px) and desktop (1280px), plus the open mobile menu, the gallery lightbox, and the membership form's error and success states. To regenerate them, build and start the site, then run the script. It uses a global Playwright install, which is a one-time setup:
+`screenshots/` holds each page at mobile (360px) and desktop (1280px). Gallery shots return once the gallery has photos. To regenerate them, build and start the site, then run the script. It uses a global Playwright install, which is a one-time setup:
 
 ```bash
 npm install -g playwright && npx playwright install chromium

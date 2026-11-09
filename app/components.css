@@ -272,31 +272,6 @@
 .ms-photo img {
   border-radius: var(--radius-md);
 }
-.ms-photo-placeholder {
-  background: var(--dove);
-  color: var(--black);
-}
-.ms-photo-stripe {
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 34%;
-}
-.ms-photo-label {
-  position: absolute;
-  left: var(--space-4);
-  right: var(--space-4);
-  top: calc(34% + 2 * var(--stripe-weight) + var(--stripe-gap) + var(--space-4));
-  text-align: center;
-  font-family: var(--font-display), system-ui, sans-serif;
-  /* 1px over the kicker size so placeholder-only pages stay above the 12px legibility floor */
-  font-size: 12px;
-  line-height: 16px;
-  font-weight: 700;
-  letter-spacing: var(--type-kicker-tracking);
-  text-transform: uppercase;
-  color: var(--black);
-}
 
 /* ------------------------------------------------------------------ */
 /* Cards                                                               */
