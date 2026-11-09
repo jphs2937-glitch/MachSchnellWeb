@@ -14,26 +14,63 @@
   }
 }
 
+/* The name: bigger than display-xl, one word per line, sitting just above the stripe */
 .heroTitle {
   margin-top: var(--space-3);
+  font-family: var(--font-display), system-ui, sans-serif;
+  font-weight: 900;
+  text-transform: uppercase;
+  font-size: clamp(54px, 15vw, 132px);
+  line-height: 0.92;
+  letter-spacing: -0.01em;
 }
-/* MACH / SCHNELL on two lines until the name fits on one */
-@media (min-width: 1100px) {
-  .heroTitle:global(.lines) > span {
-    display: inline;
+@media (min-width: 900px) {
+  .heroTitle {
+    font-size: clamp(88px, 10vw, 132px);
+  }
+}
+.titleLine {
+  display: block;
+  white-space: nowrap;
+}
+.letter {
+  display: inline-block;
+}
+/* Typed on one letter at a time: untyped letters wait as faint ghosts (like an unlit
+   board), each one lands in signal red, then settles to ink. --i is the letter index. */
+@media (prefers-reduced-motion: no-preference) {
+  .letter {
+    animation: letter-type 700ms ease-out both;
+    animation-delay: calc(450ms + var(--i) * 160ms);
+  }
+}
+@keyframes letter-type {
+  0% {
+    opacity: 0.1;
+    color: inherit;
+  }
+  1% {
+    opacity: 1;
+    color: var(--signal-red);
+  }
+  100% {
+    opacity: 1;
+    color: inherit;
   }
 }
 
-/* The stripe is the road; the coupé from the logo sits on it at the right */
+/* The stripe is the road; the coupé from the logo sits on it at the right.
+   On narrow screens the title clears the car; from 900px the title sits left of it. */
 .stripeBand {
-  --car-width: min(46vw, 220px);
+  --car-width: min(46vw, 230px);
   position: relative;
-  margin-top: calc(var(--car-width) * 0.2 + var(--space-6));
+  margin-top: calc(var(--car-width) * 0.2 + var(--space-4));
   margin-bottom: var(--space-8);
 }
 @media (min-width: 900px) {
   .stripeBand {
-    --car-width: 420px;
+    --car-width: min(34vw, 440px);
+    margin-top: var(--space-4);
     margin-bottom: var(--space-12);
   }
 }
@@ -55,10 +92,11 @@
   height: auto;
   margin-bottom: -2px;
 }
-@media (min-width: 900px) {
-  .car {
-    margin-right: var(--space-8);
-  }
+
+.heroData {
+  color: var(--ink);
+  padding-left: var(--space-3);
+  border-left: 3px solid var(--signal-red);
 }
 
 .heroBody {
@@ -74,17 +112,19 @@
 /* ------------------------------------------------------------------ */
 /* Sections                                                            */
 /* ------------------------------------------------------------------ */
-.ruled {
-  border-top: 1px solid var(--line);
-}
-
+/* What we do: raised cards with a race-plate number; the link sits at the bottom */
 .block {
-  display: flex;
-  flex-direction: column;
   gap: var(--space-3);
+}
+.block > :global(.section-index-plate) {
+  align-self: flex-start;
 }
 .block > h3 {
   margin-top: var(--space-2);
+}
+.block > div:last-child {
+  margin-top: auto;
+  padding-top: var(--space-2);
 }
 
 .after {

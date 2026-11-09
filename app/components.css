@@ -121,8 +121,13 @@
   display: flex;
   align-items: center;
   gap: var(--space-6);
-  min-height: 64px;
+  min-height: 72px;
   padding-block: var(--space-3);
+}
+@media (min-width: 960px) {
+  .ms-nav {
+    min-height: 92px;
+  }
 }
 .ms-nav-brand {
   display: flex;
@@ -134,14 +139,19 @@
 }
 /* Square icon on narrow screens, the full coupé logo from 520px */
 .ms-nav-mark {
-  width: 36px;
-  height: 36px;
+  width: 44px;
+  height: 44px;
   border-radius: var(--radius-sm);
 }
 .ms-nav-logo {
   display: none;
   width: auto;
-  height: 48px;
+  height: 52px;
+}
+@media (min-width: 960px) {
+  .ms-nav-logo {
+    height: 64px;
+  }
 }
 @media (min-width: 520px) {
   .ms-nav-mark {
@@ -157,13 +167,13 @@
 }
 .ms-nav-links ul {
   display: flex;
-  gap: var(--space-6);
+  gap: var(--space-8);
   margin: 0;
 }
 .ms-nav-links a,
 .ms-nav-menu a {
   font-family: var(--font-display), system-ui, sans-serif;
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 700;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -176,6 +186,15 @@
 .ms-nav-links a:hover,
 .ms-nav-links a[aria-current="page"] {
   border-bottom-color: var(--signal-red);
+}
+/* Desktop CTA steps up to the medium button size */
+@media (min-width: 960px) {
+  .ms-nav-cta.ms-btn-sm {
+    font-size: 14px;
+    line-height: 18px;
+    padding: var(--space-3) var(--space-6);
+    min-height: 46px;
+  }
 }
 .ms-nav-actions {
   display: flex;
@@ -226,7 +245,7 @@
 .ms-nav-menu a {
   display: block;
   padding: var(--space-4) 0;
-  font-size: 14px;
+  font-size: 16px;
   border-bottom: 0;
 }
 .ms-nav-menu a[aria-current="page"] {
@@ -293,6 +312,19 @@
   .ms-card {
     padding: var(--space-6);
   }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .ms-card {
+    transition:
+      transform 220ms cubic-bezier(0.2, 0.7, 0.2, 1),
+      border-color 220ms ease-out;
+  }
+  .ms-card:hover {
+    transform: translateY(-3px);
+  }
+}
+.ms-card:hover {
+  border-color: var(--line-strong);
 }
 .ms-card-foot {
   margin-top: auto;

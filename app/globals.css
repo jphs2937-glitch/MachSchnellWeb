@@ -9,7 +9,7 @@
 html {
   -webkit-text-size-adjust: 100%;
   text-size-adjust: 100%;
-  scroll-padding-top: 88px;
+  scroll-padding-top: 108px;
 }
 
 body {
@@ -274,12 +274,17 @@ textarea {
   font-weight: 600;
 }
 
-/* Section header: kicker, title, optional lead and link */
+/* Section header: optional numbered index row, kicker, title, lead and link */
 .section-head {
   display: flex;
   flex-direction: column;
-  gap: var(--space-2);
+  gap: var(--space-4);
   margin-bottom: var(--space-8);
+}
+.section-head-main {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
 }
 .section-head .body-l,
 .section-head p {
@@ -293,6 +298,42 @@ textarea {
     justify-content: space-between;
     gap: var(--space-8);
   }
+}
+
+/* Section index: race plate · kicker · rule to the edge */
+.section-index {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+.section-index-plate {
+  flex: none;
+  min-width: 44px;
+  padding: 2px var(--space-2);
+  border: 2px solid var(--line-strong);
+  border-radius: var(--radius-sm);
+  font-family: var(--font-display), system-ui, sans-serif;
+  font-weight: 900;
+  font-size: 16px;
+  line-height: 22px;
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+}
+.section-index-rule {
+  flex: 1;
+  height: 2px;
+  background: var(--line-strong);
+  opacity: 0.85;
+}
+
+/* Section bands: alternate grounds so sections read as separate blocks */
+.band-sunken {
+  background: var(--surface-sunken);
+  /* ink-muted is under AA on dove, so secondary text uses full ink in these bands */
+  --ink-muted: var(--ink);
+}
+.band-ruled {
+  border-top: 2px solid var(--line-strong);
 }
 
 /* Motion: subtle fades only, and none when the visitor asks for less */
