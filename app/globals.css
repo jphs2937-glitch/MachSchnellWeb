@@ -272,6 +272,10 @@ textarea {
   content: "→";
   font-family: var(--font-text), system-ui, sans-serif;
   font-weight: 600;
+  transition: transform 220ms var(--ease-out);
+}
+.text-link:hover::after {
+  transform: translateX(4px);
 }
 
 /* Section header: optional numbered index row, kicker, title, lead and link */
