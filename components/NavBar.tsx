@@ -38,9 +38,9 @@ export function NavBar() {
       <div className="ms-nav container">
         <Link href="/" className="ms-nav-brand" aria-label={`${site.shortName} home`}>
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/brand/ms-icon.svg" alt="" width={36} height={36} className="ms-nav-mark" />
+          <img src="/brand/ms-icon.svg" alt="" width={44} height={44} className="ms-nav-mark" />
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/brand/ms-logo-on-light.svg" alt="" width={151} height={48} className="ms-nav-logo" />
+          <img src="/brand/ms-logo-on-light.svg" alt="" width={202} height={64} className="ms-nav-logo" />
         </Link>
 
         <nav className="ms-nav-links" aria-label="Main">

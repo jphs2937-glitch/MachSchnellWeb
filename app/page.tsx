@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import type React from "react";
 import { ogImages } from "@/lib/seo";
 import { addressLine, site } from "@/content/site";
 import { telHref } from "@/lib/phone";
@@ -62,8 +63,32 @@ function Lines({ text, max = 14 }: { text: string; max?: number }) {
   );
 }
 
+/**
+ * The hero name, typed on one letter at a time. The h1 keeps the real text for screen
+ * readers and search; the letters are presentational. Each word is one line.
+ */
+function TypedTitle({ text, className, id }: { text: string; className: string; id: string }) {
+  let i = 0;
+  return (
+    <h1 id={id} className={className} aria-label={text}>
+      {text.split(" ").map((word, w) => (
+        <span key={w} className={styles.titleLine} aria-hidden="true">
+          {Array.from(word).map((ch) => (
+            <span key={i} className={styles.letter} style={{ "--i": i++ } as React.CSSProperties}>
+              {ch}
+            </span>
+          ))}
+        </span>
+      ))}
+    </h1>
+  );
+}
+
 export default function Home() {
-  const titleWords = home.title.split(" ");
+  const a = site.contact.address;
+  // Section numbers for the index plates, in page order (the gallery strip only counts when shown)
+  let n = 0;
+  const next = () => String(++n).padStart(2, "0");
 
   return (
     <>
@@ -73,11 +98,7 @@ export default function Home() {
           <span className="kicker" data-type>
             {home.kicker}
           </span>
-          <h1 id="home-title" className={`display-xl lines ${styles.heroTitle}`}>
-            {titleWords.map((w, i) => (
-              <span key={w}>{i > 0 ? ` ${w}` : w}</span>
-            ))}
-          </h1>
+          <TypedTitle id="home-title" text={home.title} className={styles.heroTitle} />
         </div>
 
         <div className={styles.stripeBand} data-paint>
@@ -90,6 +111,9 @@ export default function Home() {
         </div>
 
         <div className={`container ${styles.heroBody}`}>
+          <p className={`data ${styles.heroData}`}>
+            {a.street} · {a.city}, {a.region} · Est. {site.established}
+          </p>
           <p className="body-l measure">{home.lead}</p>
           <div className="ms-btn-row">
             <Button href={home.primaryCta.href} variant="primary">
@@ -113,11 +137,14 @@ export default function Home() {
       {/* 2 · What we do */}
       <section className="section" aria-labelledby="what-we-do">
         <div className="container">
-          <SectionHead id="what-we-do" kicker={home.whatWeDo.kicker} title={<Lines text={home.whatWeDo.title} />} />
+          <SectionHead index={next()} id="what-we-do" kicker={home.whatWeDo.kicker} title={<Lines text={home.whatWeDo.title} />} />
           <div className="grid-3">
-            {home.whatWeDo.blocks.map((b) => (
-              <article key={b.title} className={styles.block}>
+            {home.whatWeDo.blocks.map((b, i) => (
+              <article key={b.title} className={`ms-card ${styles.block}`}>
                 <PhotoSlot photo={b.photo} ratio="4/3" sizes={THIRD} />
+                <span className="section-index-plate" aria-hidden="true">
+                  {String(i + 1).padStart(2, "0")}
+                </span>
                 <h3 className="headline">{b.title}</h3>
                 <p>{b.text}</p>
                 <div>
@@ -130,9 +157,10 @@ export default function Home() {
       </section>
 
       {/* 3 · Storage teaser */}
-      <section className={`section ${styles.ruled}`} aria-labelledby="storage-teaser">
+      <section className="section band-sunken" aria-labelledby="storage-teaser">
         <div className="container">
           <SectionHead
+            index={next()}
             id="storage-teaser"
             kicker={home.storageTeaser.kicker}
             title={<Lines text={home.storageTeaser.title} />}
@@ -151,6 +179,7 @@ export default function Home() {
       <section data-theme="night" className="section" aria-labelledby="detailing-teaser">
         <div className="container">
           <SectionHead
+            index={next()}
             id="detailing-teaser"
             kicker={home.detailingTeaser.kicker}
             title={<Lines text={home.detailingTeaser.title} />}
@@ -173,7 +202,7 @@ export default function Home() {
       {/* 5 · The space */}
       <section className="section" aria-labelledby="the-space">
         <div className="container">
-          <SectionHead id="the-space" kicker={home.space.kicker} title={<Lines text={home.space.title} />} />
+          <SectionHead index={next()} id="the-space" kicker={home.space.kicker} title={<Lines text={home.space.title} />} />
           <AmenityList />
           {home.space.photos.some(hasPhoto) && (
             <div className={`grid-2 ${styles.after}`}>
@@ -195,6 +224,7 @@ export default function Home() {
           <section className="section" aria-labelledby="gallery-strip">
             <div className="container">
               <SectionHead
+                index={next()}
                 id="gallery-strip"
                 kicker={home.galleryStrip.kicker}
                 title={<Lines text={home.galleryStrip.title} />}
@@ -213,10 +243,14 @@ export default function Home() {
       )}
 
       {/* 7 · Location */}
-      <section className={`section ${styles.ruled}`} aria-labelledby="location">
+      <section className="section band-sunken" aria-labelledby="location">
         <div className="container grid-2">
           <div className={styles.location}>
-            <span className="kicker">{home.location.kicker}</span>
+            <div className="section-index">
+              <span className="section-index-plate">{next()}</span>
+              <span className="kicker">{home.location.kicker}</span>
+              <span className="section-index-rule" aria-hidden="true" />
+            </div>
             <h2 id="location" className="display-l">
               <Lines text={home.location.title} />
             </h2>

@@ -1,7 +1,7 @@
 /*
- * Retro motion: '70s–'80s pit boards and timing towers. Everything moves in hard
- * steps (steps()) instead of smooth easing, nothing bounces, and nothing runs when
- * the visitor prefers reduced motion. Colors and sizes come from tokens.css.
+ * Retro motion: '70s–'80s pit boards and timing towers. Wipes, typed-on text and
+ * split-flap numbers carry the retro feel; movement itself is smooth (ease-out), nothing
+ * bounces, and nothing runs when the visitor prefers reduced motion. Colors and sizes come from tokens.css.
  */
 
 /* ------------------------------------------------------------------ */
@@ -67,22 +67,23 @@
 
   /* ---------------------------------------------------------------- */
   /* Scroll reveals (components/Motion.tsx adds .rv, then .rv-in)      */
+  /* Smooth ease-out; the retro feel comes from the wipes and the type */
   /* ---------------------------------------------------------------- */
 
-  /* Cards, photos, list rows: step up into place like a board turning over */
+  /* Cards, photos, list rows: rise into place */
   .rv {
     opacity: 0;
-    transform: translateY(16px);
+    transform: translateY(24px);
   }
   .rv.rv-in {
     opacity: 1;
     transform: none;
     transition:
-      opacity 280ms steps(4, end) var(--rv-delay, 0ms),
-      transform 280ms steps(4, end) var(--rv-delay, 0ms);
+      opacity 700ms var(--ease-out) var(--rv-delay, 0ms),
+      transform 700ms var(--ease-out) var(--rv-delay, 0ms);
   }
 
-  /* Section titles: uncovered left to right in hard steps, like a timing tower */
+  /* Section titles: wiped on left to right, like a timing tower */
   .section-head .rv {
     opacity: 1;
     transform: none;
@@ -90,7 +91,23 @@
   }
   .section-head .rv.rv-in {
     clip-path: inset(0 0 0 0);
-    transition: clip-path 420ms steps(7, end) var(--rv-delay, 0ms);
+    transition: clip-path 900ms var(--ease-in-out) var(--rv-delay, 0ms);
+  }
+
+  /* Section index rule: drawn out from the plate */
+  .section-index-rule {
+    transform-origin: left center;
+  }
+  .section-index.rv {
+    opacity: 1;
+    transform: none;
+  }
+  .section-index.rv .section-index-rule {
+    transform: scaleX(0);
+  }
+  .section-index.rv.rv-in .section-index-rule {
+    transform: scaleX(1);
+    transition: transform 1100ms var(--ease-in-out) 150ms;
   }
 
   /* Club stripe: painted on from the left, red band first, then the second band */
@@ -104,42 +121,89 @@
   }
   .ms-stripe.rv.rv-in > span {
     transform: scaleX(1);
-    transition: transform 480ms steps(10, end);
+    transition: transform 1000ms var(--ease-in-out);
   }
   .ms-stripe.rv.rv-in > span + span {
-    transition-delay: 120ms;
+    transition-delay: 160ms;
   }
 
-  /* Hero stripe and any [data-paint] stripe: paint on page load, no JS needed */
+  /* ---------------------------------------------------------------- */
+  /* Hero: kicker and name type on, stripe paints, coupé drives in      */
+  /* ---------------------------------------------------------------- */
   [data-paint] .ms-stripe > span {
     transform-origin: left center;
-    animation: ms-paint 520ms steps(10, end) 120ms both;
+    animation: ms-paint 1100ms var(--ease-in-out) 100ms both;
   }
   [data-paint] .ms-stripe > span + span {
-    animation-delay: 240ms;
+    animation-delay: 260ms;
   }
 
-  /* Hero coupé: drives in along the stripe once it is painted, in hard steps */
+  /* The coupé drives in from the left while the name types */
   [data-drive] {
-    animation: ms-drive 560ms steps(7, end) 640ms both;
+    animation: ms-drive 2600ms var(--ease-out) 300ms both;
   }
 
-  /* Hero kicker: types on like a dot-matrix readout */
+  /* Kicker: types on like a dot-matrix readout */
   [data-type] {
     clip-path: inset(0 100% 0 0);
-    animation: ms-type 600ms steps(14, end) 80ms forwards;
+    animation: ms-type 1100ms steps(24, end) 100ms forwards;
   }
 
-  /* Buttons: a hard two-step press instead of a smooth fade */
+  /* The name types on letter by letter: see .letter in app/home.module.css */
+
+  /* Buttons: smooth color change and a small press */
   .ms-btn {
     transition:
-      background-color 120ms steps(2, end),
-      color 120ms steps(2, end),
-      transform 120ms steps(2, end);
+      background-color 180ms ease-out,
+      color 180ms ease-out,
+      transform 120ms ease-out;
   }
   .ms-btn:active {
     transform: translateY(1px);
   }
+
+  /* ---------------------------------------------------------------- */
+  /* Page changes (app/template.tsx): stripe wipe, then content rises   */
+  /* ---------------------------------------------------------------- */
+  .page-enter {
+    animation: ms-page-in 650ms var(--ease-out) 180ms both;
+  }
+  .page-wipe {
+    position: fixed;
+    inset: 0;
+    z-index: 60;
+    pointer-events: none;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: var(--space-4);
+    overflow: hidden;
+  }
+  .page-wipe > span {
+    display: block;
+    height: 16vh;
+    transform: translateX(-101%);
+    animation: ms-wipe 820ms var(--ease-in-out) both;
+  }
+  .page-wipe > span:first-child {
+    background: var(--signal-red);
+  }
+  .page-wipe > span:last-child {
+    background: var(--black);
+    animation-delay: 90ms;
+  }
+}
+
+/* The page-change overlay only exists for motion; never shown when reduced */
+@media (prefers-reduced-motion: reduce) {
+  .page-wipe {
+    display: none;
+  }
+}
+
+:root {
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out: cubic-bezier(0.7, 0, 0.2, 1);
 }
 
 @keyframes ms-ticker {
@@ -158,11 +222,36 @@
 @keyframes ms-drive {
   from {
     opacity: 0;
-    transform: translateX(-96px);
+    transform: translateX(-70vw);
+  }
+  12% {
+    opacity: 1;
   }
   to {
     opacity: 1;
     transform: none;
+  }
+}
+@keyframes ms-page-in {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes ms-wipe {
+  0% {
+    transform: translateX(-101%);
+  }
+  45%,
+  55% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(101%);
   }
 }
 @keyframes ms-type {

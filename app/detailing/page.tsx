@@ -55,7 +55,7 @@ export default function DetailingPage() {
 
       <section className="section" data-theme="night" aria-labelledby="packages-title">
         <div className="container">
-          <SectionHead id="packages-title" kicker={page.packagesKicker} title={page.packagesTitle} />
+          <SectionHead index="01" id="packages-title" kicker={page.packagesKicker} title={page.packagesTitle} />
           <div className={`grid-2 ${styles.packageGrid}`}>
             {site.packages.map((pkg) => (
               <PackageCard key={pkg.id} pkg={pkg} />

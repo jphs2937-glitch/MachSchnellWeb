@@ -7,6 +7,7 @@ import { useEffect } from "react";
 const TARGETS = [
   ".ms-stripe:not([data-motion-skip])",
   ".section-head :is(h1, h2)",
+  ".section-index",
   ".ms-card",
   ".ms-amenities > li",
   ".ms-photo",

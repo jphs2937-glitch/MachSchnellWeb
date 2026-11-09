@@ -69,9 +69,9 @@ export default function StoragePage() {
 
       <StripeRule bleed />
 
-      <section id="plans" className="section" aria-labelledby="plans-title">
+      <section id="plans" className="section band-sunken" aria-labelledby="plans-title">
         <div className="container">
-          <SectionHead id="plans-title" kicker={page.plansKicker} title={page.plansTitle} />
+          <SectionHead index="01" id="plans-title" kicker={page.plansKicker} title={page.plansTitle} />
           <div className={`grid-3 ${styles.planGrid}`}>
             {site.plans.map((plan, i) => (
               <PlanCard key={plan.id} plan={plan} index={i + 1} />
@@ -91,7 +91,7 @@ export default function StoragePage() {
       <section className="section" aria-labelledby="faq-title">
         <div className="container">
           <div className={styles.faq}>
-            <SectionHead id="faq-title" title={page.faqTitle} />
+            <SectionHead index="02" id="faq-title" title={page.faqTitle} />
             <Faq items={site.storageFaq} jsonLd />
           </div>
         </div>
