@@ -1,10 +1,9 @@
 /* Home page. Mobile first; every value comes from tokens.css. */
 
 /* ------------------------------------------------------------------ */
-/* Hero: headline, club stripe bleeding edge to edge, badge on stripe  */
+/* Hero: headline, club stripe bleeding edge to edge, coupé on stripe  */
 /* ------------------------------------------------------------------ */
 .hero {
-  --badge-size: 224px;
   padding-top: var(--space-12);
   padding-bottom: var(--space-12);
 }
@@ -18,40 +17,46 @@
 .heroTitle {
   margin-top: var(--space-3);
 }
-/* MACH / SCHNELL on two lines until the name fits beside the badge */
+/* MACH / SCHNELL on two lines until the name fits on one */
 @media (min-width: 1100px) {
   .heroTitle:global(.lines) > span {
     display: inline;
   }
 }
 
+/* The stripe is the road; the coupé from the logo sits on it at the right */
 .stripeBand {
+  --car-width: min(46vw, 220px);
   position: relative;
-  margin-block: var(--space-8);
-}
-
-.badgeWrap {
-  display: none;
+  margin-top: calc(var(--car-width) * 0.2 + var(--space-6));
+  margin-bottom: var(--space-8);
 }
 @media (min-width: 900px) {
   .stripeBand {
-    margin-block: var(--space-12);
+    --car-width: 420px;
+    margin-bottom: var(--space-12);
   }
-  /* Badge sits centered on the stripe at the right, as in the brand proposal */
-  .badgeWrap {
-    position: absolute;
-    inset: 0;
-    margin-inline: auto;
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    pointer-events: none;
-  }
-  .badge {
-    flex: none;
-    width: var(--badge-size);
-    height: var(--badge-size);
-    border-radius: var(--radius-round);
+}
+
+.carWrap {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 100%;
+  margin-inline: auto;
+  display: flex;
+  justify-content: flex-end;
+  pointer-events: none;
+}
+/* The tyres touch the red band */
+.car {
+  display: block;
+  width: var(--car-width);
+  height: auto;
+  margin-bottom: -2px;
+}
+@media (min-width: 900px) {
+  .car {
     margin-right: var(--space-8);
   }
 }
@@ -60,13 +65,6 @@
   display: flex;
   flex-direction: column;
   gap: var(--space-6);
-}
-@media (min-width: 900px) {
-  /* Keep the text clear of the badge's lower half */
-  .heroBody {
-    padding-right: calc(var(--badge-size) + var(--space-16));
-    min-height: calc(var(--badge-size) / 2 + var(--space-4));
-  }
 }
 
 .heroPhoto {

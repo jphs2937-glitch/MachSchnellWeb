@@ -82,9 +82,10 @@ export default function Home() {
 
         <div className={styles.stripeBand} data-paint>
           <StripeRule bleed />
-          <div className={`container ${styles.badgeWrap}`}>
+          <div className={`container ${styles.carWrap}`}>
+            {/* The coupé from the logo, parked on the club stripe */}
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/brand/ms-badge.svg" alt="" aria-hidden="true" width={224} height={224} className={styles.badge} data-stamp />
+            <img src="/brand/ms-car-on-light.svg" alt="" aria-hidden="true" width={420} height={84} className={styles.car} data-drive />
           </div>
         </div>
 

@@ -119,9 +119,9 @@
     animation-delay: 240ms;
   }
 
-  /* Hero badge: applied like a decal after the stripe lands. Never rotated (BRAND.md). */
-  [data-stamp] {
-    animation: ms-stamp 240ms steps(3, end) 760ms both;
+  /* Hero coupé: drives in along the stripe once it is painted, in hard steps */
+  [data-drive] {
+    animation: ms-drive 560ms steps(7, end) 640ms both;
   }
 
   /* Hero kicker: types on like a dot-matrix readout */
@@ -155,14 +155,14 @@
     transform: scaleX(1);
   }
 }
-@keyframes ms-stamp {
+@keyframes ms-drive {
   from {
     opacity: 0;
-    transform: scale(1.12);
+    transform: translateX(-96px);
   }
   to {
     opacity: 1;
-    transform: scale(1);
+    transform: none;
   }
 }
 @keyframes ms-type {

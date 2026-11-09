@@ -4,6 +4,7 @@
  * by MembershipForm (types and constants only).
  */
 import { z } from "zod";
+import { siteUrl } from "@/lib/url";
 import { site, type PlanId, type UpgradeId } from "@/content/site";
 
 /* ------------------------------------------------------------------ */
@@ -221,7 +222,7 @@ export function carLine(r: Pick<MembershipRequest, "year" | "make" | "model">): 
 const EMAIL = {
   bone: "#EDE6D8",
   black: "#121212",
-  red: "#E1251B",
+  red: "#D3202B",
   muted: "#6B655C",
   line: "#D8D3CA",
   display: "'Saira Expanded', 'Arial Black', Arial, sans-serif",
@@ -234,7 +235,7 @@ function emailShell(title: string, inner: string): string {
 <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>${escapeHtml(title)}</title></head>
 <body style="margin:0;padding:0;background:${EMAIL.bone};color:${EMAIL.black};font-family:${EMAIL.text};font-size:15px;line-height:24px;">
 <div style="max-width:600px;margin:0 auto;padding:32px 24px;background:${EMAIL.bone};color:${EMAIL.black};">
-<div style="font-family:${EMAIL.display};font-weight:900;font-size:20px;letter-spacing:0.02em;text-transform:uppercase;">MACH <span style="color:${EMAIL.red};">SCHNELL</span></div>
+<img src="${siteUrl}/brand/ms-logo-email.png" width="200" height="63" alt="${escapeHtml(site.name)}" style="display:block;border:0;width:200px;height:auto;">
 <div style="margin:16px 0 24px;">
 <div style="height:8px;background:${EMAIL.red};font-size:0;line-height:0;">&nbsp;</div>
 <div style="height:4px;font-size:0;line-height:0;">&nbsp;</div>

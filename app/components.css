@@ -132,22 +132,23 @@
   color: var(--ink);
   flex: none;
 }
+/* Square icon on narrow screens, the full coupé logo from 520px */
 .ms-nav-mark {
   width: 36px;
   height: 36px;
+  border-radius: var(--radius-sm);
 }
-/* 19px bold: the smallest size where signal-red text meets contrast (BRAND.md) */
-.ms-nav-word {
-  font-family: var(--font-display), system-ui, sans-serif;
-  font-weight: 800;
-  font-size: 19px;
-  line-height: 24px;
-  white-space: nowrap;
+.ms-nav-logo {
   display: none;
+  width: auto;
+  height: 48px;
 }
 @media (min-width: 520px) {
-  .ms-nav-word {
-    display: inline;
+  .ms-nav-mark {
+    display: none;
+  }
+  .ms-nav-logo {
+    display: block;
   }
 }
 .ms-nav-links {
@@ -552,7 +553,7 @@
   display: inline-block;
 }
 .ms-footer-logo img {
-  width: 247px;
+  width: 220px;
   height: auto;
 }
 .ms-footer-col {
