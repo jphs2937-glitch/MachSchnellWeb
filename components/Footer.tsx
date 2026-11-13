@@ -18,18 +18,20 @@ export function Footer() {
         </div>
 
         <div className="ms-footer-col">
-          <h2 className="kicker kicker-muted">Visit</h2>
+          <p className="kicker kicker-muted">Visit</p>
           <address>
             <a href={site.contact.directionsUrl} target="_blank" rel="noopener noreferrer">
               {addressLine()}
             </a>
             <br />
             <a href={telHref()}>{site.contact.phone}</a>
+            <br />
+            <span className="ms-footer-hours">{site.contact.hours.label}</span>
           </address>
         </div>
 
         <nav className="ms-footer-col" aria-label="Footer">
-          <h2 className="kicker kicker-muted">Club</h2>
+          <p className="kicker kicker-muted">Club</p>
           <ul role="list">
             {links.map((l) => (
               <li key={l.href}>
@@ -40,14 +42,17 @@ export function Footer() {
         </nav>
 
         <div className="ms-footer-col">
-          <h2 className="kicker kicker-muted">Follow</h2>
+          <p className="kicker kicker-muted">Follow</p>
           <a href={site.contact.instagram.url} target="_blank" rel="noopener noreferrer">
             Instagram · {site.contact.instagram.handle}
           </a>
         </div>
       </div>
       <div className="container ms-footer-base">
-        <p className="caption">{site.footer.copyright}</p>
+        <p className="caption">
+          {site.footer.copyright}
+          {site.footer.photoNote && ` · ${site.footer.photoNote}`}
+        </p>
       </div>
     </footer>
   );

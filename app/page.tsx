@@ -32,8 +32,10 @@ export const metadata: Metadata = {
 };
 
 /* Rendered widths for next/image. Container: 16px gutters, 32px from 768px, 1136px max content. */
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const FULL = "(min-width: 1200px) 1136px, (min-width: 768px) calc(100vw - 64px), calc(100vw - 32px)";
 const THIRD = "(min-width: 1200px) 363px, (min-width: 900px) calc((100vw - 112px) / 3), (min-width: 768px) calc(100vw - 64px), calc(100vw - 32px)";
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const HALF = "(min-width: 1200px) 556px, (min-width: 768px) calc((100vw - 88px) / 2), calc(100vw - 32px)";
 const GALLERY = "(min-width: 1200px) 170px, (min-width: 1100px) calc((100vw - 144px) / 6), (min-width: 768px) calc((100vw - 96px) / 3), calc((100vw - 48px) / 2)";
 
@@ -106,7 +108,9 @@ export default function Home() {
           <div className={`container ${styles.carWrap}`}>
             {/* The coupé from the logo, parked on the club stripe */}
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/brand/ms-car-on-light.svg" alt="" aria-hidden="true" width={420} height={84} className={styles.car} data-drive />
+            <span className={styles.carScroll}>
+              <img src="/brand/ms-car-on-light.svg" alt="" aria-hidden="true" width={420} height={84} className={styles.car} data-drive />
+            </span>
           </div>
         </div>
 
@@ -115,19 +119,23 @@ export default function Home() {
             {a.street} · {a.city}, {a.region} · Est. {site.established}
           </p>
           <p className="body-l measure">{home.lead}</p>
+          <p className={`title ${styles.heroPrice}`}>{home.priceLine}</p>
           <div className="ms-btn-row">
-            <Button href={home.primaryCta.href} variant="primary">
+            <Button href={home.primaryCta.href} variant="primary" size="lg">
               {home.primaryCta.label}
             </Button>
-            <Button href={home.secondaryCta.href} variant="ghost">
-              {home.secondaryCta.label}
+            <Button href={telHref()} variant="ghost" size="lg">
+              {home.callLabel} {site.contact.phone}
             </Button>
+          </div>
+          <div>
+            <TextLink href={home.secondaryCta.href}>{home.secondaryCta.label}</TextLink>
           </div>
         </div>
 
         {hasPhoto(home.heroPhoto) && (
-          <div className={`container ${styles.heroPhoto}`}>
-            <PhotoSlot photo={home.heroPhoto} ratio="16/9" sizes={FULL} priority />
+          <div className={styles.heroPhoto} data-parallax>
+            <PhotoSlot photo={home.heroPhoto} ratio="16/9" sizes="100vw" priority className="ms-photo-bleed" />
           </div>
         )}
       </section>
@@ -199,18 +207,45 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 5 · The space */}
-      <section className="section" aria-labelledby="the-space">
-        <div className="container">
+      {/* 5 · The space (night): full-bleed photo, then the readouts */}
+      <section data-theme="night" className={styles.garage} aria-labelledby="the-space">
+        {hasPhoto(home.space.photos[0]) && (
+          <div className={styles.garagePhoto} data-parallax>
+            <PhotoSlot photo={home.space.photos[0]} ratio="16/9" sizes="100vw" className="ms-photo-bleed" />
+          </div>
+        )}
+        <div className="container section">
           <SectionHead index={next()} id="the-space" kicker={home.space.kicker} title={<Lines text={home.space.title} />} />
-          <AmenityList />
-          {home.space.photos.some(hasPhoto) && (
-            <div className={`grid-2 ${styles.after}`}>
-              {home.space.photos.filter(hasPhoto).map((p) => (
-                <PhotoSlot key={p.caption} photo={p} ratio="4/3" sizes={HALF} />
-              ))}
-            </div>
-          )}
+          <ul role="list" className="ms-specs">
+            {home.space.specs.map((s) => (
+              <li key={s.label}>
+                <span className="kicker">{s.label}</span>
+                <span className="headline">{s.value}</span>
+              </li>
+            ))}
+          </ul>
+          <div className={styles.after}>
+            <AmenityList />
+          </div>
+        </div>
+      </section>
+
+      {/* 6 · Access: call ahead, drive away */}
+      <section className="section" aria-labelledby="ready-by">
+        <div className="container">
+          <SectionHead index={next()} id="ready-by" kicker={home.readyBy.kicker} title={<Lines text={home.readyBy.title} max={16} />} lead={home.readyBy.text} />
+          <ol role="list" className="ms-steps">
+            {home.readyBy.steps.map((s, i) => (
+              <li key={s.title}>
+                <span className="section-index-plate" aria-hidden="true">
+                  {String(i + 1).padStart(2, "0")}
+                </span>
+                <span className="kicker">{s.tag}</span>
+                <h3 className="headline">{s.title}</h3>
+                <p className="muted">{s.text}</p>
+              </li>
+            ))}
+          </ol>
         </div>
       </section>
 
@@ -259,6 +294,7 @@ export default function Home() {
               <span className="visually-hidden">Call </span>
               {site.contact.phone}
             </a>
+            <p className="data">{site.contact.hours.label}</p>
             <p className="muted measure">{home.location.text}</p>
           </div>
           <MapEmbed directionsLabel={home.location.directionsLabel} />
@@ -276,6 +312,9 @@ export default function Home() {
           <div className="ms-btn-row">
             <Button href={home.finalCta.cta.href} variant="primary" size="lg">
               {home.finalCta.cta.label}
+            </Button>
+            <Button href={home.finalCta.tourCta.href} variant="ghost" size="lg">
+              {home.finalCta.tourCta.label}
             </Button>
           </div>
         </div>

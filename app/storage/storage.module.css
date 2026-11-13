@@ -64,3 +64,7 @@
     flex: none;
   }
 }
+
+.photoBleed {
+  overflow: hidden;
+}

@@ -5,11 +5,14 @@ import { NavBar } from "@/components/NavBar";
 import { Footer } from "@/components/Footer";
 import { LocalBusinessJsonLd } from "@/components/LocalBusinessJsonLd";
 import { Motion } from "@/components/Motion";
+import { ScrollFx } from "@/components/ScrollFx";
+import { ActionBar } from "@/components/ActionBar";
 import { fontDisplay, fontText } from "./fonts";
 import "./tokens.css";
 import "./globals.css";
 import "./components.css";
 import "./motion.css";
+import "./wow.css";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -50,7 +53,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         </main>
         <Footer />
         <LocalBusinessJsonLd />
+        <ActionBar />
         <Motion />
+        <ScrollFx />
       </body>
     </html>
   );

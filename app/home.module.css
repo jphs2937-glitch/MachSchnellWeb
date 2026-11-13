@@ -201,3 +201,29 @@
   align-items: flex-start;
   gap: var(--space-6);
 }
+
+/* ------------------------------------------------------------------ */
+/* Hero additions: price line, coupé that drives off as the page       */
+/* scrolls, and the full-bleed photo under the fold                    */
+/* ------------------------------------------------------------------ */
+.hero {
+  overflow-x: clip;
+  padding-bottom: 0;
+}
+.heroPrice {
+  color: var(--ink);
+}
+.carScroll {
+  display: block;
+  transform: translateX(calc(var(--hero-p, 0) * 70vw));
+  will-change: transform;
+}
+.heroPhoto {
+  margin-top: var(--space-12);
+}
+.garage {
+  overflow: hidden;
+}
+.garagePhoto {
+  position: relative;
+}

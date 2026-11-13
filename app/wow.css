@@ -1,0 +1,553 @@
+/**
+ * November 2026 redesign layer: wider canvas, full-bleed photography, scroll-linked
+ * motion, the membership builder, the short callback form and phone-first actions.
+ * Loaded last. Colors and spacing still come from tokens.css.
+ */
+
+/* ------------------------------------------------------------------ */
+/* Canvas: use the width on large screens                              */
+/* ------------------------------------------------------------------ */
+@media (min-width: 1600px) {
+  .container {
+    max-width: 1440px;
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/* Touch targets: 44px minimum on links people tap                     */
+/* ------------------------------------------------------------------ */
+.text-link {
+  min-height: 44px;
+}
+.ms-footer-col a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+}
+.ms-footer-col li {
+  margin: 0;
+}
+.ms-footer-hours {
+  font-variant-numeric: tabular-nums;
+}
+.ms-nav-links a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+}
+.ms-nav-toggle {
+  min-height: 44px;
+}
+.ms-btn-sm {
+  min-height: 44px;
+}
+
+/* ------------------------------------------------------------------ */
+/* Nav: phone, and the stripe as a progress road                       */
+/* ------------------------------------------------------------------ */
+.ms-nav-phone {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  min-width: 44px;
+  min-height: 44px;
+  color: var(--ink);
+  text-decoration: none;
+  font-family: var(--font-display), system-ui, sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  font-variant-numeric: tabular-nums;
+  border: 2px solid var(--line-strong);
+  border-radius: var(--radius-sm);
+}
+.ms-nav-phone:hover {
+  color: var(--accent-text);
+}
+.ms-nav-phone-number {
+  display: none;
+}
+@media (max-width: 599px) {
+  /* Phones: the header keeps the mark, the phone and the menu; the CTA lives in the action bar and the hero */
+  .ms-nav-cta {
+    display: none;
+  }
+}
+@media (min-width: 1100px) {
+  .ms-nav-phone {
+    border: 0;
+    padding-inline: var(--space-2);
+  }
+  .ms-nav-phone-number {
+    display: inline;
+  }
+}
+
+.ms-progress {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -3px;
+  height: 3px;
+  pointer-events: none;
+}
+.ms-nav-wrap {
+  position: sticky;
+}
+.ms-progress-bar {
+  position: absolute;
+  inset: 0;
+  background: var(--signal-red);
+  transform-origin: left center;
+  transform: scaleX(var(--sp, 0));
+}
+.ms-progress-car {
+  position: absolute;
+  bottom: 2px;
+  left: 0;
+  width: 60px;
+  height: auto;
+  transform: translateX(calc(var(--sp, 0) * (100vw - 60px)));
+  opacity: calc(var(--sp, 0) * 40);
+}
+@media (prefers-reduced-motion: reduce) {
+  .ms-progress {
+    display: none;
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/* Phones: call and join pinned to the bottom after the first screen    */
+/* ------------------------------------------------------------------ */
+.ms-actionbar {
+  display: none;
+}
+@media (max-width: 767px) {
+  .ms-actionbar {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 45;
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: var(--space-2);
+    padding: var(--space-2) var(--space-4) calc(var(--space-2) + env(safe-area-inset-bottom));
+    background: var(--surface);
+    border-top: 1px solid var(--line);
+    transform: translateY(110%);
+    visibility: hidden;
+    transition:
+      transform 260ms var(--ease-out),
+      visibility 0s 260ms;
+  }
+  [data-scrolled] .ms-actionbar {
+    transform: none;
+    visibility: visible;
+    transition: transform 260ms var(--ease-out);
+  }
+  .ms-actionbar .ms-btn {
+    justify-content: center;
+    padding-inline: var(--space-3);
+  }
+  .ms-footer {
+    padding-bottom: 72px;
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/* Ticker pause                                                        */
+/* ------------------------------------------------------------------ */
+.ms-ticker-wrap {
+  position: relative;
+}
+.ms-ticker-pause {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 44px;
+  display: grid;
+  place-items: center;
+  background: var(--surface);
+  color: var(--ink);
+  border: 0;
+  border-left: 1px solid var(--line);
+  font-size: 11px;
+  cursor: pointer;
+}
+.ms-ticker-wrap[data-paused] .ms-ticker-track {
+  animation-play-state: paused;
+}
+@media (prefers-reduced-motion: reduce) {
+  .ms-ticker-pause {
+    display: none;
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/* Photography: full-bleed bands with parallax, wipe-in reveals, hover  */
+/* ------------------------------------------------------------------ */
+.ms-photo-bleed {
+  border-radius: 0;
+  aspect-ratio: 4 / 3 !important;
+}
+.ms-photo-bleed img {
+  border-radius: 0;
+}
+@media (min-width: 768px) {
+  .ms-photo-bleed {
+    aspect-ratio: 21 / 9 !important;
+  }
+}
+@media (min-width: 1600px) {
+  .ms-photo-bleed {
+    aspect-ratio: 5 / 2 !important;
+  }
+}
+.ms-card .ms-photo img,
+.ms-photo img {
+  transition: transform 900ms var(--ease-out);
+}
+@media (hover: hover) {
+  .ms-card:hover .ms-photo img,
+  a:hover .ms-photo img,
+  button:hover .ms-photo img {
+    transform: scale(1.05);
+  }
+  .ms-card {
+    transition:
+      transform 260ms var(--ease-out),
+      border-color 260ms var(--ease-out);
+  }
+  .ms-card:hover {
+    transform: translateY(-4px);
+    border-color: var(--line-strong);
+  }
+}
+@media (prefers-reduced-motion: no-preference) {
+  [data-parallax] .ms-photo img {
+    transform: translateY(calc(var(--par, 0) * -7%)) scale(1.16);
+    transition: none;
+    will-change: transform;
+  }
+  /* Photos are uncovered top to bottom, like a garage door going up */
+  .ms-photo.rv {
+    opacity: 1;
+    transform: none;
+    clip-path: inset(100% 0 0 0);
+  }
+  .ms-photo.rv.rv-in {
+    clip-path: inset(0 0 0 0);
+    transition: clip-path 1100ms var(--ease-in-out) var(--rv-delay, 0ms);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .ms-card,
+  .ms-card:hover,
+  .ms-photo img {
+    transform: none !important;
+    transition: none;
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/* Readouts, steps and the facility list                                */
+/* ------------------------------------------------------------------ */
+.ms-specs {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  border-top: 1px solid var(--line-strong);
+  border-left: 1px solid var(--line);
+}
+.ms-specs > li {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  padding: var(--space-6) var(--space-4);
+  border-right: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+@media (min-width: 768px) {
+  .ms-specs {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+@media (min-width: 1200px) {
+  .ms-specs {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+  }
+  .ms-specs .headline {
+    font-size: 17px;
+    line-height: 22px;
+  }
+}
+
+.ms-steps {
+  display: grid;
+  gap: var(--space-8);
+  grid-template-columns: 1fr;
+  counter-reset: none;
+}
+.ms-steps > li {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-2);
+  padding-top: var(--space-6);
+  border-top: 8px solid var(--signal-red);
+}
+.ms-steps > li:nth-child(2) {
+  border-top-color: var(--ink);
+}
+.ms-steps > li:nth-child(3) {
+  border-top-color: var(--signal-red);
+}
+@media (min-width: 768px) {
+  .ms-steps {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--space-6);
+  }
+}
+
+.ms-facility {
+  display: grid;
+  grid-template-columns: 1fr;
+  border-top: 1px solid var(--line-strong);
+}
+.ms-facility > li {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  padding: var(--space-6) 0;
+  border-bottom: 1px solid var(--line);
+}
+@media (min-width: 768px) {
+  .ms-facility {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: var(--space-8);
+  }
+}
+@media (min-width: 1100px) {
+  .ms-facility {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/* Membership builder                                                   */
+/* ------------------------------------------------------------------ */
+.ms-builder {
+  display: grid;
+  gap: var(--space-6);
+  grid-template-columns: 1fr;
+}
+@media (min-width: 960px) {
+  .ms-builder {
+    grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
+    align-items: stretch;
+  }
+}
+.ms-builder-controls {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+}
+.ms-builder-group {
+  border: 0;
+  padding: 0;
+  margin: 0;
+  min-width: 0;
+}
+.ms-builder-group legend {
+  padding: 0;
+  margin-bottom: var(--space-3);
+}
+.ms-builder-options {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--space-2);
+}
+.ms-builder-option {
+  position: relative;
+  cursor: pointer;
+}
+.ms-builder-option input {
+  position: absolute;
+  opacity: 0;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+}
+.ms-builder-option > span {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 2px;
+  min-height: 64px;
+  height: 100%;
+  padding: var(--space-3);
+  background: var(--surface-raised);
+  border: 2px solid var(--line);
+  border-radius: var(--radius-md);
+  font-family: var(--font-display), system-ui, sans-serif;
+  font-weight: 800;
+  font-size: 18px;
+  line-height: 22px;
+  text-transform: uppercase;
+  transition:
+    border-color 160ms ease-out,
+    background-color 160ms ease-out,
+    color 160ms ease-out;
+}
+.ms-builder-option small {
+  font-family: var(--font-text), system-ui, sans-serif;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 16px;
+  letter-spacing: 0.02em;
+  text-transform: none;
+  color: var(--ink-muted);
+}
+.ms-builder-option input:checked + span {
+  border-color: var(--ink);
+  background: var(--ink);
+  color: var(--surface);
+}
+.ms-builder-option input:checked + span small {
+  color: inherit;
+  opacity: 0.8;
+}
+.ms-builder-option input:focus-visible + span {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 2px;
+}
+.ms-builder-total {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: var(--space-3);
+  padding: var(--space-8) var(--space-6);
+  background: var(--surface);
+  color: var(--ink);
+  border-radius: var(--radius-md);
+  border-top: 8px solid var(--signal-red);
+}
+.ms-builder-amount {
+  font-family: var(--font-display), system-ui, sans-serif;
+  font-weight: 900;
+  font-size: clamp(56px, 12vw, 96px);
+  line-height: 0.95;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.01em;
+}
+.ms-builder-dollar {
+  font-size: 0.5em;
+  vertical-align: 0.6em;
+  margin-right: 2px;
+}
+.ms-builder-suffix {
+  font-size: 14px;
+  line-height: 18px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+.ms-builder-total .ms-btn {
+  margin-top: var(--space-3);
+}
+
+/* ------------------------------------------------------------------ */
+/* Callback form                                                        */
+/* ------------------------------------------------------------------ */
+.ms-callback {
+  margin-top: var(--space-8);
+  scroll-margin-top: 120px;
+  gap: var(--space-4);
+}
+.ms-callback:hover {
+  transform: none;
+}
+.ms-callback form {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: var(--space-4);
+}
+.ms-callback-hp {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+.ms-callback-field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+.ms-callback-field > span,
+.ms-callback-reasons legend {
+  font-family: var(--font-display), system-ui, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.ms-callback-field input {
+  min-height: 48px;
+  padding: var(--space-3);
+  font: inherit;
+  color: var(--ink);
+  background: var(--surface-raised);
+  border: 2px solid var(--line-strong);
+  border-radius: var(--radius-sm);
+}
+.ms-callback-reasons {
+  border: 0;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2) var(--space-6);
+}
+.ms-callback-reasons legend {
+  padding: 0;
+  margin-bottom: var(--space-2);
+}
+.ms-callback-reasons label {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-height: 44px;
+  cursor: pointer;
+}
+.ms-callback-reasons input {
+  width: 20px;
+  height: 20px;
+  accent-color: var(--signal-red);
+}
+.ms-callback-error {
+  color: var(--accent-text);
+  font-weight: 600;
+}
+.ms-callback .ms-btn {
+  align-self: flex-start;
+}
+
+/* Builder on phones: long package names get their own row */
+@media (max-width: 479px) {
+  .ms-builder-group:last-child .ms-builder-options {
+    grid-template-columns: 1fr;
+  }
+  .ms-builder-group:last-child .ms-builder-option > span {
+    min-height: 52px;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+}

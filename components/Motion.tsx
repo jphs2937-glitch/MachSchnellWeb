@@ -10,9 +10,12 @@ const TARGETS = [
   ".section-index",
   ".ms-card",
   ".ms-amenities > li",
-  ".ms-photo",
+  ".ms-photo:not(.ms-photo-bleed)",
   ".ms-ticks > li",
   "[data-reveal]",
+  ".ms-specs > li",
+  ".ms-steps > li",
+  ".ms-facility > li",
 ].join(", ");
 
 /**

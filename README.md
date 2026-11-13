@@ -61,6 +61,10 @@ Where things live in the file:
 | Address, map, Instagram, club email | `contact` |
 | Top navigation | `nav`, `cta` |
 | Turn on the Events page | `events.enabled` → `true` (adds the `EVENTS` link, makes `/events` indexable and adds it to the sitemap) |
+| Access hours and call-ahead notice | `contact.hours`, `facility`, `home.readyBy` |
+| Security, climate, tours section | `facility` |
+| Membership builder labels | `builder` |
+| Short callback form | `join.callback` |
 | Storage plans and prices | `plans` |
 | Grand Prix / Concours upgrade prices | `upgrades` |
 | Storage FAQ | `storageFaq` |
@@ -73,7 +77,7 @@ Where things live in the file:
 
 ## Add photos
 
-No real photos exist yet, so every photo spot is hidden and the pages close up around them. A photo appears as soon as its `src` is set. The **Gallery** page, its nav link and the gallery strip on the home page stay hidden until at least one gallery photo has a file; until then `/gallery` returns 404 and is left out of the sitemap.
+The site currently runs on **placeholder photography** (free-license, credited in `public/photos/CREDITS.md`). The owner approved this in November 2026 as a temporary override of the "no stock photos, no badges" rule in BRAND.md. Swap each `src` for a real club photo as they arrive, then set `footer.photoNote` to `""`. A photo spot with an empty `src` is hidden, and the Gallery page disappears if no gallery photo has a file.
 
 1. Put the image in `public/photos/` (JPG or WebP, at least 2000px wide for the hero, 1600px for others). Use simple lowercase file names: `storage-floor-wide.jpg`.
 2. In `content/site.ts`, find the matching entry and set `src`:
@@ -98,11 +102,10 @@ Brand imagery rules (BRAND.md): real club cars, shot low and side-on, natural li
 
 ## Placeholders to fill in (TODO list)
 
-Prices, phone, Instagram and FAQ answers are all set. What is left:
-
-| Placeholder | Where | Current value |
-|---|---|---|
-| All photos | every `src: ""` | hidden until set |
+| Placeholder | Where |
+|---|---|
+| Real club photos | every `src` in `content/site.ts` |
+| Security and climate wording | `facility` and `home.space.specs`: confirm each line matches the building |
 
 Email is live: `mach-schnell.com` is verified in Resend and `RESEND_API_KEY` is set in Vercel.
 
