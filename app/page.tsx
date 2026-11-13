@@ -6,8 +6,6 @@ import { telHref } from "@/lib/phone";
 import { AmenityList } from "@/components/AmenityList";
 import { Button } from "@/components/Button";
 import { MapEmbed } from "@/components/MapEmbed";
-import { PackageCard } from "@/components/PackageCard";
-import { PhoneCTA } from "@/components/PhoneCTA";
 import { PhotoSlot } from "@/components/PhotoSlot";
 import { PlanCard } from "@/components/PlanCard";
 import { SectionHead } from "@/components/SectionHead";
@@ -201,26 +199,50 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 4 · Detailing teaser (night) */}
-      <section data-theme="night" className="section" aria-labelledby="detailing-teaser">
-        <div className="container">
-          <SectionHead
-            index={next()}
-            id="detailing-teaser"
-            kicker={home.detailingTeaser.kicker}
-            title={<Lines text={home.detailingTeaser.title} />}
-            lead={home.detailingTeaser.text}
-          />
-          <div className={styles.packages}>
+      {/* 4 · Detailing (night): pinned while the four pit boards slide past sideways.
+             Without motion (or on very short screens) it is a normal swipeable row. */}
+      <section data-theme="night" className={styles.pit} aria-labelledby="detailing-teaser" data-scene>
+        <div className={styles.pitSticky}>
+          <div className="container">
+            <SectionHead
+              index={next()}
+              id="detailing-teaser"
+              kicker={home.detailingTeaser.kicker}
+              title={<Lines text={home.detailingTeaser.title} />}
+              lead={home.detailingTeaser.text}
+            />
+          </div>
+          <ol role="list" className={styles.pitTrack}>
             {site.packages.map((pkg) => (
-              <PackageCard key={pkg.id} pkg={pkg} compact />
+              <li key={pkg.id} className={styles.board}>
+                <span className={styles.boardNo} aria-hidden="true">
+                  {pkg.number}
+                </span>
+                <p className={styles.boardPrice}>{pkg.price}</p>
+                <h3 className="display-l">{pkg.name}</h3>
+                <p className="kicker">{pkg.tagline}</p>
+                <ul role="list" className={styles.boardList}>
+                  {pkg.includes.map((item) => (
+                    <li key={item}>{item}</li>
+                  ))}
+                </ul>
+              </li>
             ))}
-          </div>
-          <div className={styles.phone}>
-            <PhoneCTA compact headingLevel="h3" />
-          </div>
-          <div className={styles.after}>
-            <TextLink href={home.detailingTeaser.link.href}>{home.detailingTeaser.link.label}</TextLink>
+            <li className={`${styles.board} ${styles.boardCall}`}>
+              <p className="kicker">{site.detailing.bookingNotice}</p>
+              <h3 className="display-l">{site.detailing.phoneCta}</h3>
+              <div className="ms-btn-row">
+                <Button href={telHref()} variant="primary" size="lg">
+                  {home.callLabel} {site.contact.phone}
+                </Button>
+              </div>
+              <div>
+                <TextLink href={home.detailingTeaser.link.href}>{home.detailingTeaser.link.label}</TextLink>
+              </div>
+            </li>
+          </ol>
+          <div className={`container ${styles.pitProgress}`} aria-hidden="true">
+            <span />
           </div>
         </div>
       </section>
