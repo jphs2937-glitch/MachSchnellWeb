@@ -134,8 +134,20 @@ export default function Home() {
         </div>
 
         {hasPhoto(home.heroPhoto) && (
-          <div className={styles.heroPhoto} data-parallax>
-            <PhotoSlot photo={home.heroPhoto} ratio="16/9" sizes="100vw" priority className="ms-photo-bleed" />
+          <div className={styles.scene} data-scene data-theme="night">
+            {/* Pinned while it scrolls: the photo opens from a slit to the full screen, the name slides across it */}
+            <div className={styles.sceneSticky}>
+              <div className={styles.sceneClip}>
+                <PhotoSlot photo={home.heroPhoto} ratio="16/9" sizes="100vw" priority className="ms-photo-fill" />
+              </div>
+              <p className={styles.sceneWord} aria-hidden="true">
+                {home.sceneWord}
+              </p>
+              <div className={`container ${styles.sceneHud}`} aria-hidden="true">
+                <span className="kicker">{home.kicker}</span>
+                <span className="kicker">{home.priceLine}</span>
+              </div>
+            </div>
           </div>
         )}
       </section>
@@ -163,6 +175,12 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      <div className="ms-bigtype" aria-hidden="true">
+        {home.bigType.map((line) => (
+          <p key={line}>{line}</p>
+        ))}
+      </div>
 
       {/* 3 · Storage teaser */}
       <section className="section band-sunken" aria-labelledby="storage-teaser">
@@ -210,8 +228,15 @@ export default function Home() {
       {/* 5 · The space (night): full-bleed photo, then the readouts */}
       <section data-theme="night" className={styles.garage} aria-labelledby="the-space">
         {hasPhoto(home.space.photos[0]) && (
-          <div className={styles.garagePhoto} data-parallax>
-            <PhotoSlot photo={home.space.photos[0]} ratio="16/9" sizes="100vw" className="ms-photo-bleed" />
+          <div className="ms-spot" data-spot>
+            {/* Dark garage; the pointer is the light. A second, lit copy shows through a round mask. */}
+            <PhotoSlot photo={home.space.photos[0]} ratio="16/9" sizes="100vw" className="ms-photo-bleed ms-spot-dark" />
+            <div className="ms-spot-lit" aria-hidden="true">
+              <PhotoSlot photo={{ ...home.space.photos[0], alt: "" }} ratio="16/9" sizes="100vw" className="ms-photo-bleed" />
+            </div>
+            <p className="kicker ms-spot-hint" aria-hidden="true">
+              {home.spotHint}
+            </p>
           </div>
         )}
         <div className="container section">

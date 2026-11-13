@@ -302,6 +302,10 @@ export const site = {
     secondaryCta: { label: "See storage", href: "/storage" },
     /** Price line under the hero lead. */
     priceLine: "Storage from $300/month · Detailing from $125",
+    /** Giant word that slides across the hero photo, and the two lines of the big-type band. */
+    sceneWord: "Mach Schnell · Mach Schnell · Mach Schnell ·",
+    bigType: ["Store · Detail · Drive · Store · Detail · Drive ·", "Houston · Est. 2026 · Houston · Est. 2026 · Houston ·"],
+    spotHint: "Move to light the floor",
     callLabel: "Call",
     /** Pit-wall ticker under the hero. Short items; they scroll in a loop. */
     ticker: [
@@ -449,6 +453,8 @@ export const site = {
   },
 
   gallery: {
+    /** Off: no Gallery page, nav link or home strip. Set true to bring them back. */
+    enabled: false,
     seoTitle: "Gallery",
     seoDescription: "Photos from the Mach Schnell garage in Houston: the storage floor, detailing and club cars.",
     kicker: "Gallery",

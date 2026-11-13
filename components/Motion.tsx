@@ -10,7 +10,7 @@ const TARGETS = [
   ".section-index",
   ".ms-card",
   ".ms-amenities > li",
-  ".ms-photo:not(.ms-photo-bleed)",
+  ".ms-photo:not(.ms-photo-bleed):not(.ms-photo-fill)",
   ".ms-ticks > li",
   "[data-reveal]",
   ".ms-specs > li",

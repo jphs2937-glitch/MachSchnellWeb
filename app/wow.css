@@ -551,3 +551,190 @@
     justify-content: space-between;
   }
 }
+
+/* ------------------------------------------------------------------ */
+/* Photo that fills its parent (the pinned hero scene)                  */
+/* ------------------------------------------------------------------ */
+.ms-photo-fill {
+  border-radius: 0;
+}
+.ms-photo-fill img {
+  border-radius: 0;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .ms-photo-fill {
+    aspect-ratio: auto !important;
+    height: 100%;
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/* Intro: five start lights come on, go out, and the curtain lifts.     */
+/* Plays once per session. Pure CSS, so it always clears itself.        */
+/* ------------------------------------------------------------------ */
+.ms-intro {
+  display: none;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .ms-intro {
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+    display: grid;
+    place-items: center;
+    background: var(--black);
+    border-bottom: 8px solid var(--signal-red);
+    animation: ms-intro-lift 700ms var(--ease-in-out) 1500ms forwards;
+  }
+  [data-intro-seen] .ms-intro {
+    display: none;
+  }
+  .ms-intro-lights {
+    display: flex;
+    gap: clamp(10px, 2.5vw, 28px);
+    padding: clamp(12px, 2.5vw, 28px);
+    border: 3px solid #2a2a2a;
+    border-radius: var(--radius-md);
+    animation: ms-intro-out 10ms linear 1350ms forwards;
+  }
+  .ms-intro-lights span {
+    width: clamp(34px, 8vw, 84px);
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background: #2a0a0c;
+    animation: ms-intro-on 10ms linear calc(200ms + var(--i) * 200ms) forwards;
+  }
+  html:not([data-intro-seen]) [data-paint] .ms-stripe > span {
+    animation-delay: 1800ms;
+  }
+  html:not([data-intro-seen]) [data-paint] .ms-stripe > span + span {
+    animation-delay: 1900ms;
+  }
+  html:not([data-intro-seen]) [data-drive] {
+    animation-delay: 1850ms;
+  }
+  html:not([data-intro-seen]) [data-type] {
+    animation-delay: 1750ms;
+  }
+}
+@keyframes ms-intro-on {
+  to {
+    background: var(--signal-red);
+    box-shadow: 0 0 40px 6px rgba(211, 32, 43, 0.55);
+  }
+}
+@keyframes ms-intro-out {
+  to {
+    filter: brightness(0.12) saturate(0.4);
+  }
+}
+@keyframes ms-intro-lift {
+  to {
+    transform: translateY(-101%);
+    visibility: hidden;
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/* Big type band: two lines of outline and solid lettering that slide   */
+/* against each other as the page scrolls                               */
+/* ------------------------------------------------------------------ */
+.ms-bigtype {
+  overflow: hidden;
+  padding-block: var(--space-8);
+  border-block: 1px solid var(--line);
+}
+.ms-bigtype p {
+  margin: 0;
+  white-space: nowrap;
+  font-family: var(--font-display), system-ui, sans-serif;
+  font-weight: 900;
+  font-size: clamp(56px, 13vw, 240px);
+  line-height: 0.95;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+  color: transparent;
+  -webkit-text-stroke: 2px var(--ink);
+  transform: translateX(calc(var(--sp, 0) * -90vw));
+  will-change: transform;
+}
+.ms-bigtype p + p {
+  color: var(--signal-red);
+  -webkit-text-stroke: 0;
+  transform: translateX(calc(-80vw + var(--sp, 0) * 90vw));
+}
+
+/* ------------------------------------------------------------------ */
+/* The garage light: a dark photo, and a lit copy seen through a round  */
+/* mask that follows the pointer. Without a pointer the light sweeps.   */
+/* ------------------------------------------------------------------ */
+@property --mx {
+  syntax: "<percentage>";
+  inherits: true;
+  initial-value: 50%;
+}
+.ms-spot {
+  --mx: 50%;
+  --my: 55%;
+  position: relative;
+  overflow: hidden;
+  background: var(--black);
+}
+.ms-spot-lit {
+  position: absolute;
+  inset: 0;
+}
+.ms-spot-hint {
+  display: none;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .ms-spot-dark img {
+    filter: brightness(0.22) saturate(0.5);
+  }
+  .ms-spot-lit {
+    -webkit-mask-image: radial-gradient(circle clamp(130px, 20vw, 320px) at var(--mx) var(--my), #000 35%, transparent 100%);
+    mask-image: radial-gradient(circle clamp(130px, 20vw, 320px) at var(--mx) var(--my), #000 35%, transparent 100%);
+  }
+  .ms-spot:not([data-lit]) {
+    animation: ms-spot-sweep 7s ease-in-out infinite alternate;
+  }
+  @media (hover: hover) {
+    .ms-spot {
+      cursor: crosshair;
+    }
+    .ms-spot-hint {
+      display: block;
+      position: absolute;
+      left: var(--space-8);
+      bottom: var(--space-6);
+      color: #fff;
+      transition: opacity 400ms ease-out;
+    }
+    .ms-spot[data-lit] .ms-spot-hint {
+      opacity: 0;
+    }
+  }
+}
+@keyframes ms-spot-sweep {
+  from {
+    --mx: 12%;
+  }
+  to {
+    --mx: 88%;
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/* Plan cards and the builder total lean toward the pointer             */
+/* ------------------------------------------------------------------ */
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .ms-plan,
+  .ms-plan:hover,
+  .ms-builder-total {
+    transform: perspective(900px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
+    transition:
+      transform 180ms ease-out,
+      border-color 260ms var(--ease-out);
+    will-change: transform;
+  }
+}

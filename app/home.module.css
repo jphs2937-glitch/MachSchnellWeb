@@ -227,3 +227,91 @@
 .garagePhoto {
   position: relative;
 }
+
+/* ------------------------------------------------------------------ */
+/* Hero scene: pinned while it scrolls. The photo opens from a slit to  */
+/* the full screen and the name slides across it. --p comes from        */
+/* components/ScrollFx.tsx (0 at the top of the scene, 1 at the end).   */
+/* ------------------------------------------------------------------ */
+.scene {
+  margin-top: var(--space-12);
+  background: var(--black);
+}
+.sceneSticky {
+  position: relative;
+  overflow: hidden;
+}
+.sceneWord,
+.sceneHud {
+  display: none;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .scene {
+    --e: clamp(0, calc(var(--p, 0) * 1.8), 1);
+    height: 230vh;
+  }
+  .sceneSticky {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    height: 100svh;
+  }
+  .sceneClip {
+    position: absolute;
+    inset: 0;
+    clip-path: inset(calc((1 - var(--e)) * 30%) calc((1 - var(--e)) * 8%) round calc((1 - var(--e)) * 8px));
+    will-change: clip-path;
+  }
+  .sceneClip :global(.ms-photo img) {
+    transform: scale(calc(1.3 - var(--e) * 0.3));
+    will-change: transform;
+  }
+  .sceneWord {
+    display: block;
+    position: absolute;
+    left: 0;
+    bottom: 4vh;
+    margin: 0;
+    white-space: nowrap;
+    font-family: var(--font-display), system-ui, sans-serif;
+    font-weight: 900;
+    font-size: clamp(88px, 21vw, 420px);
+    line-height: 0.9;
+    letter-spacing: -0.02em;
+    text-transform: uppercase;
+    color: #fff;
+    mix-blend-mode: difference;
+    transform: translateX(calc(30vw - var(--p, 0) * 150vw));
+    will-change: transform;
+    pointer-events: none;
+  }
+  .sceneHud {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: calc(92px + var(--space-6));
+    display: flex;
+    justify-content: space-between;
+    gap: var(--space-4);
+    color: #fff;
+    opacity: calc((var(--p, 0) - 0.45) * 4);
+  }
+  .sceneHud :global(.kicker) {
+    color: #fff;
+  }
+
+  /* On a first visit the start lights play first, so the name types on after the curtain lifts */
+  :global(html:not([data-intro-seen])) .letter {
+    animation-delay: calc(1900ms + var(--i) * 85ms);
+  }
+}
+
+/* Phones: keep the sliding name clear of the bottom action bar; no room for the readouts */
+@media (max-width: 767px) {
+  .sceneWord {
+    bottom: 14vh;
+  }
+  .sceneHud {
+    display: none;
+  }
+}
