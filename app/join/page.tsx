@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
 import { ogImages } from "@/lib/seo";
 import { site } from "@/content/site";
+import { CallbackForm } from "@/components/CallbackForm";
 import { MembershipForm } from "@/components/MembershipForm";
 import { StripeRule } from "@/components/StripeRule";
-import { isPlanId, todayInHouston } from "@/lib/membership";
+import { CAR_COUNTS, PACKAGE_IDS, isPlanId, todayInHouston } from "@/lib/membership";
 import styles from "./join.module.css";
 
 const page = site.join;
@@ -25,8 +26,11 @@ type Props = {
 };
 
 export default async function JoinPage({ searchParams }: Props) {
-  const { plan } = await searchParams;
+  const { plan, cars, package: pkg } = await searchParams;
   const initialPlan = isPlanId(plan) ? plan : undefined;
+  const initialCars = typeof cars === "string" && (CAR_COUNTS as readonly string[]).includes(cars) ? cars : undefined;
+  const initialPackage = typeof pkg === "string" && (PACKAGE_IDS as readonly string[]).includes(pkg) ? pkg : undefined;
+  const startedAt = Date.now();
 
   return (
     <section className="section" aria-labelledby="join-title">
@@ -56,10 +60,11 @@ export default async function JoinPage({ searchParams }: Props) {
                 </li>
               ))}
             </ol>
+            <CallbackForm startedAt={startedAt} />
           </aside>
 
           <div className={styles.formCol}>
-            <MembershipForm initialPlan={initialPlan} minDate={todayInHouston()} startedAt={Date.now()} />
+            <MembershipForm initialPlan={initialPlan} initialCars={initialCars} initialPackage={initialPackage} minDate={todayInHouston()} startedAt={startedAt} />
           </div>
         </div>
       </div>

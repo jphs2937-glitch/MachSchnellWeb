@@ -1,9 +1,11 @@
 import type { Metadata } from "next";
 import { ogImages } from "@/lib/seo";
 import { site } from "@/content/site";
+import { telHref } from "@/lib/phone";
 import { AmenityList } from "@/components/AmenityList";
 import { Button } from "@/components/Button";
 import { Faq } from "@/components/Faq";
+import { PlanBuilder } from "@/components/PlanBuilder";
 import { PhotoSlot } from "@/components/PhotoSlot";
 import { PlanCard } from "@/components/PlanCard";
 import { SectionHead } from "@/components/SectionHead";
@@ -50,6 +52,9 @@ export default function StoragePage() {
                   {page.plansLink.label}
                 </Button>
               </div>
+              <p className="data">
+                {site.contact.hours.label} · <a href={telHref()}>{site.contact.phone}</a>
+              </p>
             </div>
             {hasPhoto(page.introPhoto) && <PhotoSlot photo={page.introPhoto} ratio="4/3" sizes={HALF} priority />}
           </div>
@@ -62,21 +67,43 @@ export default function StoragePage() {
       </section>
 
       {hasPhoto(page.betweenPhotos[0]) && (
-        <div className={`container ${styles.photoBand}`}>
-          <PhotoSlot photo={page.betweenPhotos[0]} ratio="16/9" sizes={FULL} />
+        <div className={styles.photoBleed} data-parallax>
+          <PhotoSlot photo={page.betweenPhotos[0]} ratio="16/9" sizes="100vw" className="ms-photo-bleed" />
         </div>
       )}
+
+      <section className="section" data-theme="night" aria-labelledby="facility-title">
+        <div className="container">
+          <SectionHead index="01" id="facility-title" kicker={site.facility.kicker} title={site.facility.title} />
+          <ul role="list" className="ms-facility">
+            {site.facility.items.map((item, i) => (
+              <li key={item.title}>
+                <span className="data">{String(i + 1).padStart(2, "0")}</span>
+                <h3 className="title">{item.title}</h3>
+                <p className="muted">{item.text}</p>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
 
       <StripeRule bleed />
 
       <section id="plans" className="section band-sunken" aria-labelledby="plans-title">
         <div className="container">
-          <SectionHead index="01" id="plans-title" kicker={page.plansKicker} title={page.plansTitle} />
+          <SectionHead index="02" id="plans-title" kicker={page.plansKicker} title={page.plansTitle} lead={site.facility.termNote} />
           <div className={`grid-3 ${styles.planGrid}`}>
             {site.plans.map((plan, i) => (
               <PlanCard key={plan.id} plan={plan} index={i + 1} />
             ))}
           </div>
+        </div>
+      </section>
+
+      <section className="section" aria-labelledby="builder-title">
+        <div className="container">
+          <SectionHead index="03" id="builder-title" kicker={site.builder.kicker} title={site.builder.title} />
+          <PlanBuilder />
         </div>
       </section>
 
@@ -91,7 +118,7 @@ export default function StoragePage() {
       <section className="section" aria-labelledby="faq-title">
         <div className="container">
           <div className={styles.faq}>
-            <SectionHead index="02" id="faq-title" title={page.faqTitle} />
+            <SectionHead index="04" id="faq-title" title={page.faqTitle} />
             <Faq items={site.storageFaq} jsonLd />
           </div>
         </div>
@@ -105,9 +132,14 @@ export default function StoragePage() {
             </h2>
             <p className="body-l measure">{page.finalCta.text}</p>
           </div>
-          <Button href={site.cta.href} size="lg">
-            {site.cta.label}
-          </Button>
+          <div className="ms-btn-row">
+            <Button href={site.cta.href} size="lg">
+              {site.cta.label}
+            </Button>
+            <Button href={site.home.finalCta.tourCta.href} variant="ghost" size="lg">
+              {site.home.finalCta.tourCta.label}
+            </Button>
+          </div>
         </div>
       </section>
     </>

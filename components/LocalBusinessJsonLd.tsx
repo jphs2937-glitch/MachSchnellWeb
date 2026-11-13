@@ -26,6 +26,30 @@ export function LocalBusinessJsonLd() {
     hasMap: site.contact.directionsUrl,
     sameAs: [site.contact.instagram.url],
     priceRange: "$$",
+    openingHoursSpecification: [
+      {
+        "@type": "OpeningHoursSpecification",
+        dayOfWeek: site.contact.hours.days,
+        opens: site.contact.hours.opens,
+        closes: site.contact.hours.closes,
+      },
+    ],
+    makesOffer: [
+      ...site.plans.map((p) => ({
+        "@type": "Offer",
+        name: `Car storage: ${p.name}`,
+        price: p.price.replace(/[^0-9.]/g, ""),
+        priceCurrency: "USD",
+        description: `${p.summary} Billed monthly.`,
+      })),
+      ...site.packages.map((p) => ({
+        "@type": "Offer",
+        name: `Detailing: ${p.name}`,
+        price: p.price.replace(/[^0-9.]/g, ""),
+        priceCurrency: "USD",
+        description: p.tagline,
+      })),
+    ],
   };
   return (
     <script
