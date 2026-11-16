@@ -738,3 +738,66 @@
     will-change: transform;
   }
 }
+
+/* ------------------------------------------------------------------ */
+/* The logo coupé: sketched on, inked in, with a red layer set behind   */
+/* it that separates as the drawing leans toward the pointer            */
+/* ------------------------------------------------------------------ */
+.ms-coupe {
+  perspective: 900px;
+}
+.ms-coupe-stage {
+  position: relative;
+  transform-style: preserve-3d;
+}
+.ms-coupe svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+.ms-coupe-front path {
+  fill: var(--ink);
+  stroke: var(--ink);
+  stroke-width: 1.5;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 0;
+}
+.ms-coupe-back {
+  position: absolute;
+  inset: 0;
+  transform: translate3d(6px, 6px, -40px);
+}
+.ms-coupe-back path {
+  fill: var(--signal-red);
+}
+@media (prefers-reduced-motion: no-preference) {
+  .ms-coupe.rv {
+    opacity: 1;
+    transform: none;
+  }
+  .ms-coupe.rv .ms-coupe-front path {
+    stroke-dashoffset: 1;
+    fill-opacity: 0;
+  }
+  .ms-coupe.rv .ms-coupe-back {
+    opacity: 0;
+  }
+  .ms-coupe.rv.rv-in .ms-coupe-front path {
+    stroke-dashoffset: 0;
+    fill-opacity: 1;
+    transition:
+      stroke-dashoffset 2600ms var(--ease-in-out),
+      fill-opacity 700ms ease-out 2200ms;
+  }
+  .ms-coupe.rv.rv-in .ms-coupe-back {
+    opacity: 1;
+    transition: opacity 700ms ease-out 2500ms;
+  }
+  @media (hover: hover) {
+    .ms-coupe-stage {
+      transform: rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
+      transition: transform 220ms ease-out;
+    }
+  }
+}

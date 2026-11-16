@@ -26,7 +26,7 @@ export function ScrollFx() {
     const introTimer = window.setTimeout(() => root.setAttribute("data-intro-seen", ""), 2600);
 
     // Pointer effects: the garage light follows the pointer; plan cards lean toward it.
-    const TILT = ".ms-plan, .ms-builder-total";
+    const TILT = ".ms-plan, .ms-builder-total, .ms-coupe";
     const onMove = (e: PointerEvent) => {
       const target = e.target as Element | null;
       const t = target?.closest?.<HTMLElement>(`[data-spot], ${TILT}`);

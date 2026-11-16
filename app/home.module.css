@@ -443,3 +443,22 @@
   font-size: 13px;
   letter-spacing: 0.04em;
 }
+
+/* Final CTA: the coupé draws itself above the invitation */
+.finalCoupe {
+  width: min(100%, 720px);
+  margin-bottom: var(--space-4);
+}
+@media (min-width: 1024px) {
+  .finalBody {
+    position: relative;
+  }
+  .finalCoupe {
+    position: absolute;
+    right: var(--space-8);
+    top: 50%;
+    width: min(46%, 640px);
+    margin: 0;
+    translate: 0 -50%;
+  }
+}

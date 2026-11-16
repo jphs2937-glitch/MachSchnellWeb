@@ -5,6 +5,7 @@ import { addressLine, site } from "@/content/site";
 import { telHref } from "@/lib/phone";
 import { AmenityList } from "@/components/AmenityList";
 import { Button } from "@/components/Button";
+import { CoupeDraw } from "@/components/CoupeDraw";
 import { MapEmbed } from "@/components/MapEmbed";
 import { PhotoSlot } from "@/components/PhotoSlot";
 import { PlanCard } from "@/components/PlanCard";
@@ -352,6 +353,7 @@ export default function Home() {
       <section data-theme="night" aria-labelledby="final-cta">
         <StripeRule />
         <div className={`container section ${styles.finalBody}`}>
+          <CoupeDraw className={styles.finalCoupe} />
           <h2 id="final-cta" className="display-l">
             <Lines text={home.finalCta.title} />
           </h2>
