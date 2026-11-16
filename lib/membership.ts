@@ -13,6 +13,7 @@ import { site, type PlanId, type UpgradeId } from "@/content/site";
 
 export const PLAN_IDS = ["storage", "storage-1-detail", "storage-2-details"] as const satisfies readonly PlanId[];
 export const PACKAGE_IDS = ["pit-stop", "grand-prix", "concours"] as const satisfies readonly UpgradeId[];
+export const CAR_COUNTS = ["1", "2", "3+"] as const;
 export const DEFAULT_PACKAGE: UpgradeId = "pit-stop";
 
 export function isPlanId(value: unknown): value is PlanId {
@@ -52,9 +53,8 @@ export const FIELD_NAMES = [
   "name",
   "email",
   "phone",
-  "year",
-  "make",
-  "model",
+  "car",
+  "cars",
   "plan",
   "package",
   "startDate",
@@ -72,8 +72,7 @@ export const MAX_LENGTHS = {
   name: 100,
   email: 254,
   phone: 30,
-  make: 60,
-  model: 80,
+  car: 120,
   message: 2000,
 } as const;
 
@@ -128,16 +127,8 @@ function buildSchema() {
         (v) => /^[0-9+().\-\s]+$/.test(v) && v.replace(/\D/g, "").length >= 7,
         { error: e.phone },
       ),
-      year: z
-        .string()
-        .trim()
-        .regex(/^\d{4}$/, { error: e.year })
-        .refine((v) => {
-          const y = Number(v);
-          return y >= 1886 && y <= new Date().getFullYear() + 2;
-        }, { error: e.year }),
-      make: line(MAX_LENGTHS.make, e.make),
-      model: line(MAX_LENGTHS.model, e.model),
+      car: line(MAX_LENGTHS.car, e.car),
+      cars: z.enum(CAR_COUNTS, { error: e.cars }),
       plan: z.enum(PLAN_IDS, { error: e.plan }),
       /** Only read for plans with details; ignored (and dropped) for Storage. */
       package: z.string().optional(),
@@ -214,8 +205,8 @@ export function escapeHtml(value: string): string {
 /** Keeps a header value on one line. */
 const oneLine = (v: string) => v.replace(/[\r\n]+/g, " ").trim();
 
-export function carLine(r: Pick<MembershipRequest, "year" | "make" | "model">): string {
-  return `${r.year} ${r.make} ${r.model}`;
+export function carLine(r: Pick<MembershipRequest, "car">): string {
+  return r.car;
 }
 
 /* Brand values for email clients, which cannot read the site's CSS variables. */
@@ -267,6 +258,7 @@ export function buildTeamEmail(r: MembershipRequest, submittedAt: Date = new Dat
     [f.email, r.email],
     [f.phone, r.phone],
     [f.carLegend, carLine(r)],
+    [f.cars, r.cars],
     [f.planLegend, plan],
   ];
   if (r.package) rows.push([f.packageLegend, packageName(r.package)]);

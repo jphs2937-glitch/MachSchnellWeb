@@ -7,4 +7,4 @@ export const hasPhoto = (p: Photo | undefined): p is Photo => Boolean(p?.src);
 export const galleryPhotos = site.photos.filter(hasPhoto);
 
 /** The gallery page, its nav link and the home strip appear once at least one photo has a file. */
-export const galleryEnabled = galleryPhotos.length > 0;
+export const galleryEnabled = site.gallery.enabled && galleryPhotos.length > 0;

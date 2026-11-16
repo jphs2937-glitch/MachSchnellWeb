@@ -17,6 +17,10 @@ import s from "./MembershipForm.module.css";
 type Props = {
   /** Plan preselected from ?plan= (already validated by the page). */
   initialPlan?: PlanId;
+  /** Car count preselected from ?cars=. */
+  initialCars?: string;
+  /** Detailing package preselected from ?package=. */
+  initialPackage?: string;
   /** Earliest start date, YYYY-MM-DD. */
   minDate: string;
   /** Server time when the page rendered (ms). Submissions within ~2s are treated as bots. */
@@ -35,9 +39,8 @@ const SUMMARY_ORDER: { name: FieldName; label: string; target: string }[] = [
   { name: "name", label: f.name, target: fieldId("name") },
   { name: "email", label: f.email, target: fieldId("email") },
   { name: "phone", label: f.phone, target: fieldId("phone") },
-  { name: "year", label: f.year, target: fieldId("year") },
-  { name: "make", label: f.make, target: fieldId("make") },
-  { name: "model", label: f.model, target: fieldId("model") },
+  { name: "car", label: f.car, target: fieldId("car") },
+  { name: "cars", label: f.cars, target: fieldId("cars") },
   { name: "plan", label: f.planLegend, target: `${fieldId("plan")}-${site.plans[0].id}` },
   { name: "package", label: f.packageLegend, target: `${fieldId("package")}-${site.upgrades[0].id}` },
   { name: "startDate", label: f.startDate, target: fieldId("startDate") },
@@ -70,10 +73,10 @@ function ErrorText({ name, message }: { name: FieldName; message?: string }) {
 }
 
 /** Membership request form for /join. Validated on the server; inline errors and a focused summary on failure. */
-export function MembershipForm({ initialPlan, minDate, startedAt }: Props) {
+export function MembershipForm({ initialPlan, initialCars, initialPackage, minDate, startedAt }: Props) {
   const [state, formAction, isPending] = useActionState(submitMembership, initialMembershipState);
   const [plan, setPlan] = useState<string>(initialPlan ?? "");
-  const [pkg, setPkg] = useState<string>(DEFAULT_PACKAGE);
+  const [pkg, setPkg] = useState<string>(initialPackage ?? DEFAULT_PACKAGE);
   /** Fade the package group in only when the visitor reveals it, never on first render. */
   const [fadePackage, setFadePackage] = useState(false);
   const [announcement, setAnnouncement] = useState("");
@@ -239,67 +242,50 @@ export function MembershipForm({ initialPlan, minDate, startedAt }: Props) {
         <legend className={s.legend}>{f.carLegend}</legend>
         <div className={s.carRow}>
           <div className={s.field}>
-            <label className={s.label} htmlFor={fieldId("year")}>
-              {f.year}
+            <label className={s.label} htmlFor={fieldId("car")}>
+              {f.car}
               <Required />
             </label>
             <input
-              id={fieldId("year")}
-              name="year"
+              id={fieldId("car")}
+              name="car"
               type="text"
               className={s.input}
-              inputMode="numeric"
-              pattern="[0-9]{4}"
-              minLength={4}
-              maxLength={4}
               autoComplete="off"
               required
               aria-required="true"
-              defaultValue={values.year ?? ""}
-              aria-invalid={invalid("year")}
-              aria-describedby={describedBy("year")}
+              maxLength={MAX_LENGTHS.car}
+              defaultValue={values.car ?? ""}
+              aria-invalid={invalid("car")}
+              aria-describedby={describedBy("car", true)}
             />
-            <ErrorText name="year" message={errors.year} />
+            <p id={helpId("car")} className={s.help}>
+              {f.carHelp}
+            </p>
+            <ErrorText name="car" message={errors.car} />
           </div>
           <div className={s.field}>
-            <label className={s.label} htmlFor={fieldId("make")}>
-              {f.make}
+            <label className={s.label} htmlFor={fieldId("cars")}>
+              {f.cars}
               <Required />
             </label>
-            <input
-              id={fieldId("make")}
-              name="make"
-              type="text"
+            <select
+              id={fieldId("cars")}
+              name="cars"
               className={s.input}
-              autoComplete="off"
               required
               aria-required="true"
-              maxLength={MAX_LENGTHS.make}
-              defaultValue={values.make ?? ""}
-              aria-invalid={invalid("make")}
-              aria-describedby={describedBy("make")}
-            />
-            <ErrorText name="make" message={errors.make} />
-          </div>
-          <div className={s.field}>
-            <label className={s.label} htmlFor={fieldId("model")}>
-              {f.model}
-              <Required />
-            </label>
-            <input
-              id={fieldId("model")}
-              name="model"
-              type="text"
-              className={s.input}
-              autoComplete="off"
-              required
-              aria-required="true"
-              maxLength={MAX_LENGTHS.model}
-              defaultValue={values.model ?? ""}
-              aria-invalid={invalid("model")}
-              aria-describedby={describedBy("model")}
-            />
-            <ErrorText name="model" message={errors.model} />
+              defaultValue={values.cars ?? initialCars ?? "1"}
+              aria-invalid={invalid("cars")}
+              aria-describedby={describedBy("cars")}
+            >
+              {f.carsOptions.map((o) => (
+                <option key={o} value={o}>
+                  {o}
+                </option>
+              ))}
+            </select>
+            <ErrorText name="cars" message={errors.cars} />
           </div>
         </div>
       </fieldset>

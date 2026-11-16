@@ -48,6 +48,15 @@ export const site = {
       "https://www.google.com/maps?q=9225+Rasmus+Dr,+Houston,+TX+77063&output=embed",
     directionsUrl:
       "https://www.google.com/maps/dir/?api=1&destination=9225+Rasmus+Dr,+Houston,+TX+77063",
+    /** Access hours. Shown on the site and sent to search engines. 24-hour times. */
+    hours: {
+      label: "Mon–Fri · 09:00–17:00",
+      days: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+      opens: "09:00",
+      closes: "17:00",
+      /** How far ahead a member calls before collecting a car. */
+      notice: "Call 1 hour 30 minutes ahead",
+    },
     instagram: {
       handle: "@machschnell.htx",
       url: "https://www.instagram.com/machschnell.htx/",
@@ -82,6 +91,8 @@ export const site = {
 
   footer: {
     copyright: "© Mach Schnell Automotive Club · Est. 2026",
+    /** Shown while the site uses placeholder photography. Set to "" once real club photos are in. */
+    photoNote: "Photography: representative images.",
   },
 
   /* ------------------------------------------------------------------ */
@@ -93,6 +104,37 @@ export const site = {
     { title: "Secure, gated, camera-monitored", text: "Gated entry and cameras on the floor." },
     { title: "Battery tender and car cover included", text: "Every car on a tender, under a cover, ready to start." },
   ],
+
+  /** Security, climate and access, in detail. Shown on the Storage page. */
+  facility: {
+    kicker: "The facility",
+    title: "Security · Climate · Access",
+    items: [
+      { title: "Security", text: "Gated entry, a monitored alarm and cameras on the floor." },
+      { title: "Fire protection", text: "Fire protection across the building." },
+      { title: "Climate", text: "Temperature and humidity held steady all year, with backup power on site." },
+      { title: "Staff", text: "Staff on call." },
+      { title: "Access", text: "Monday to Friday, 09:00 to 17:00. Call 1 hour 30 minutes ahead and your car is out, charged and ready to drive." },
+      { title: "Tours", text: "See the garage before you decide. Call us or ask for a callback and we set a time." },
+    ],
+    termNote: "Six-month minimum term · One plan per car · Three cars or more: call us",
+  },
+
+  /** Membership builder on the Storage page. Totals are worked out from `plans` and `upgrades`. */
+  builder: {
+    kicker: "Build yours",
+    title: "Your membership",
+    carsLabel: "Cars",
+    carsOptions: ["1", "2", "3+"],
+    detailsLabel: "Details per month",
+    packageLabel: "Detailing package",
+    totalLabel: "Estimated monthly total",
+    totalNote: "From. Final price confirmed on the call.",
+    perCar: "per car",
+    manyTitle: "Three cars or more",
+    manyText: "Call us and we set up the collection together.",
+    cta: "Continue",
+  },
 
   plans: [
     {
@@ -152,7 +194,7 @@ export const site = {
   storageFaq: [
     {
       q: "Can I get to my car?",
-      a: "Yes. Let us know in advance and your car will be out, charged and ready to drive.",
+      a: "Yes. Monday to Friday, 09:00 to 17:00. Call 1 hour 30 minutes ahead and your car will be out, charged and ready to drive.",
     },
     {
       q: "Do I need my own insurance?",
@@ -165,6 +207,18 @@ export const site = {
     {
       q: "What size vehicles do you take?",
       a: "Anything from a compact two-seater to a full-size, heavy-duty pickup.",
+    },
+    {
+      q: "Can I see the garage first?",
+      a: "Yes. We offer tours. Call us or ask for a callback and we set a time.",
+    },
+    {
+      q: "I have more than one car.",
+      a: "Each car gets its own space and plan. For three cars or more, call us and we set it up together.",
+    },
+    {
+      q: "How is the garage secured?",
+      a: "Gated entry, a monitored alarm, cameras on the floor and fire protection across the building. Staff are on call.",
     },
   ],
 
@@ -246,6 +300,13 @@ export const site = {
     lead: "We store your car, detail it, and keep it ready to drive.",
     primaryCta: { label: "Become a member", href: "/join" },
     secondaryCta: { label: "See storage", href: "/storage" },
+    /** Price line under the hero lead. */
+    priceLine: "Storage from $300/month · Detailing from $125",
+    /** Giant word that slides across the hero photo, and the two lines of the big-type band. */
+    sceneWord: "Mach Schnell · Mach Schnell · Mach Schnell ·",
+    bigType: ["Store · Detail · Drive · Store · Detail · Drive ·", "Houston · Est. 2026 · Houston · Est. 2026 · Houston ·"],
+    spotHint: "Move to light the floor",
+    callLabel: "Call",
     /** Pit-wall ticker under the hero. Short items; they scroll in a loop. */
     ticker: [
       "Climate controlled",
@@ -253,9 +314,11 @@ export const site = {
       "Battery tender and car cover included",
       "Detailing from $125",
       "Storage from $300/month",
+      "Access Mon–Fri · 09:00–17:00",
+      "Tours by appointment",
       "Houston · Est. 2026",
     ],
-    heroPhoto: { src: "", alt: "Members' cars parked on the climate-controlled storage floor", caption: "Storage floor wide" },
+    heroPhoto: { src: "/photos/coupe-side-garage.jpg", alt: "A red coupé parked side-on in a garage", caption: "Side-on" },
 
     whatWeDo: {
       kicker: "What we do",
@@ -265,19 +328,19 @@ export const site = {
           title: "Storage",
           text: "Climate-controlled, gated and camera-monitored space for luxury and collector cars. Battery tender and car cover on every car.",
           link: { label: "See storage", href: "/storage" },
-          photo: { src: "", alt: "A covered car on a battery tender in its storage bay", caption: "Storage bay" },
+          photo: { src: "/photos/lineup-showroom.jpg", alt: "A line of classic cars parked nose to tail on a polished floor", caption: "Lineup" },
         },
         {
           title: "Detailing",
           text: "Four packages, done in our facility by a professional detailer. From a maintenance wash to a full collector-car detail.",
           link: { label: "See detailing", href: "/detailing" },
-          photo: { src: "", alt: "A detailer applying wax to a car's hood", caption: "Detailing" },
+          photo: { src: "/photos/polisher-hood.jpg", alt: "A detailer machine-polishing a car hood", caption: "Detailing" },
         },
         {
           title: "Club",
           text: "Drives, meets and evenings at the garage for members. Events are coming soon.",
-          link: { label: "Become a member", href: "/join" },
-          photo: { src: "", alt: "Members' cars lined up before a morning drive", caption: "Club drive" },
+          link: { label: "Book a tour", href: "/join#callback" },
+          photo: { src: "/photos/classics-pair.jpg", alt: "Two classic sports cars parked side by side", caption: "Club" },
         },
       ],
     },
@@ -300,9 +363,29 @@ export const site = {
       kicker: "The space",
       title: "Built for cars that sit well",
       photos: [
-        { src: "", alt: "Wide view of the storage floor with cars under covers", caption: "Storage floor" },
-        { src: "", alt: "Gated entrance to the facility", caption: "Gated entrance" },
+        { src: "/photos/storage-hall.jpg", alt: "A long indoor hall of stored collector cars", caption: "Storage hall" },
       ] as Photo[],
+      /** Readouts over the garage section. Facts only. */
+      specs: [
+        { label: "Climate", value: "Held steady" },
+        { label: "Entry", value: "Gated" },
+        { label: "Cameras", value: "On the floor" },
+        { label: "Alarm", value: "Monitored" },
+        { label: "Power", value: "Backup on site" },
+        { label: "Staff", value: "On call" },
+      ],
+    },
+
+    /** How a member gets a car out. */
+    readyBy: {
+      kicker: "Access",
+      title: "Call ahead. Drive away.",
+      text: "Monday to Friday, 09:00 to 17:00.",
+      steps: [
+        { tag: "1:30 ahead", title: "You call", text: "Tell us which car and when." },
+        { tag: "In the garage", title: "We pull it", text: "Cover off, tender off, car out of its bay." },
+        { tag: "On time", title: "You drive", text: "Out front, charged and ready." },
+      ],
     },
 
     galleryStrip: {
@@ -322,11 +405,12 @@ export const site = {
       title: "Reserve your space",
       text: "Tell us about your car and we'll call you within one business day.",
       cta: { label: "Become a member", href: "/join" },
+      tourCta: { label: "Book a tour", href: "/join#callback" },
     },
   },
 
   storage: {
-    seoTitle: "Storage",
+    seoTitle: "Car storage in Houston",
     seoDescription:
       "Climate-controlled, secure car storage in Houston from $300/month. Battery tender and car cover included. Plans with monthly detailing.",
     kicker: "Storage · Houston",
@@ -335,7 +419,7 @@ export const site = {
     titleLines: ["Car", "storage"],
     amenitiesTitle: "What's included",
     lead: "A climate-controlled, gated, camera-monitored garage for luxury and collector cars. Every car goes on a battery tender, under a cover, and stays ready to drive.",
-    introPhoto: { src: "", alt: "Cars under covers on the storage floor", caption: "Storage floor" },
+    introPhoto: { src: "/photos/roadster-bay.jpg", alt: "A blue roadster parked in a clean garage bay", caption: "Storage bay" },
     plansKicker: "Memberships",
     plansTitle: "Three plans",
     upgradesLabel: "Per detail upgrades",
@@ -346,13 +430,13 @@ export const site = {
       text: "Tell us about your car and we'll call you within one business day.",
     },
     betweenPhotos: [
-      { src: "", alt: "Close-up of a battery tender connected to a stored car", caption: "Battery tender" },
-      { src: "", alt: "Security camera over the storage floor", caption: "Security" },
+      { src: "/photos/garage-hall-wide.jpg", alt: "Classic cars on the floor of a brick-walled garage hall", caption: "Garage hall" },
+      { src: "/photos/white-coupe-nose.jpg", alt: "The nose of a white classic coupé in a dark garage", caption: "In storage" },
     ] as Photo[],
   },
 
   detailingPage: {
-    seoTitle: "Detailing",
+    seoTitle: "Car detailing in Houston",
     seoDescription:
       "Four detailing packages for luxury and collector cars in Houston, from $125. Done at our climate-controlled facility by a professional detailer.",
     kicker: "Detailing · Houston",
@@ -362,13 +446,15 @@ export const site = {
     packagesTitle: "Four packages",
     membersLink: { label: "Storage plans", href: "/storage" },
     photos: [
-      { src: "", alt: "Hand washing a car's exterior", caption: "Hand wash" },
-      { src: "", alt: "Leather seat being conditioned", caption: "Interior" },
-      { src: "", alt: "Clay bar on a painted panel", caption: "Clay bar" },
+      { src: "/photos/hand-wash.jpg", alt: "Hand washing a car door with a wash mitt", caption: "Hand wash" },
+      { src: "/photos/dashboard-brush.jpg", alt: "A detailer cleaning a classic car dashboard with a brush", caption: "Interior" },
+      { src: "/photos/hood-finish.jpg", alt: "A detailer finishing the hood of a car by hand", caption: "Finish" },
     ] as Photo[],
   },
 
   gallery: {
+    /** Off: no Gallery page, nav link or home strip. Set true to bring them back. */
+    enabled: false,
     seoTitle: "Gallery",
     seoDescription: "Photos from the Mach Schnell garage in Houston: the storage floor, detailing and club cars.",
     kicker: "Gallery",
@@ -398,13 +484,27 @@ export const site = {
     kicker: "Membership",
     title: "Become a member",
     lead: "Tell us about you and your car. We'll call you within one business day to confirm your space.",
+    /** Short form: name and phone only. */
+    callback: {
+      title: "Short on time",
+      text: "Leave a name and a number. We call you back, or set up a tour.",
+      reasonLegend: "What for",
+      reasons: [
+        { id: "tour", label: "Book a tour" },
+        { id: "callback", label: "Call me back" },
+      ],
+      submitLabel: "Request a call",
+      success: "Got it. We'll call you within one business day.",
+      orCall: "Or call",
+      emailHeading: "Callback request",
+    },
     successMessage: "Request received. We'll call you within one business day.",
     submitLabel: "Send request",
     errorMessage: "Something went wrong sending your request. Try again, or call us.",
     sendingLabel: "Sending",
     stepsTitle: "How it works",
     steps: [
-      "Send this form. It takes two minutes.",
+      "Send this form. It takes a minute.",
       "We call you within one business day.",
       "We confirm your plan, your space and a start date.",
     ],
@@ -419,9 +519,10 @@ export const site = {
       phone: "Phone",
       phoneHelp: "We call this number to confirm your space.",
       carLegend: "Car",
-      year: "Year",
-      make: "Make",
-      model: "Model",
+      car: "Year, make and model",
+      carHelp: "One line is enough. Year first.",
+      cars: "How many cars",
+      carsOptions: ["1", "2", "3+"],
       planLegend: "Plan",
       packageLegend: "Detailing package",
       packageHelp: "Applies to every detail in your plan. You can change it later.",
@@ -439,9 +540,8 @@ export const site = {
         name: "Enter your name.",
         email: "Enter a valid email address, like name@example.com.",
         phone: "Enter a phone number we can call.",
-        year: "Enter the year as four digits, like 1973.",
-        make: "Enter the make.",
-        model: "Enter the model.",
+        car: "Enter the year, make and model.",
+        cars: "Choose how many cars.",
         plan: "Choose a plan.",
         package: "Choose a detailing package.",
         startDate: "Choose a start date from today on.",
@@ -473,19 +573,20 @@ export const site = {
   /* also appear in the strip on the home page.                         */
   /* ------------------------------------------------------------------ */
 
+  /** Placeholder photography (free-license, see public/photos/CREDITS.md). Replace with real club photos. */
   photos: [
-    { src: "", alt: "Storage floor with cars under covers", caption: "Storage floor" },
-    { src: "", alt: "A coupe after a Concours detail", caption: "Concours detail" },
-    { src: "", alt: "Detailer cleaning a wheel", caption: "Wheels" },
-    { src: "", alt: "Members' cars lined up outside the garage", caption: "Morning lineup" },
-    { src: "", alt: "Leather interior after conditioning", caption: "Interior" },
-    { src: "", alt: "Gated entrance at dusk", caption: "Entrance" },
-    { src: "", alt: "Clay bar decontamination on a hood", caption: "Clay bar" },
-    { src: "", alt: "A car on a battery tender", caption: "Battery tender" },
-    { src: "", alt: "Side profile of a collector car", caption: "Side profile" },
-    { src: "", alt: "Wax being buffed off a fender", caption: "Wax" },
-    { src: "", alt: "Car covers on the storage floor", caption: "Covers on" },
-    { src: "", alt: "A member collecting their car", caption: "Ready to drive" },
+    { src: "/photos/coupe-side-garage.jpg", alt: "A red coupé parked side-on in a garage", caption: "Side-on" },
+    { src: "/photos/lineup-showroom.jpg", alt: "A line of classic cars on a polished floor", caption: "Lineup" },
+    { src: "/photos/classics-pair.jpg", alt: "Two classic sports cars parked side by side", caption: "The pair" },
+    { src: "/photos/white-coupe-nose.jpg", alt: "The nose of a white classic coupé", caption: "White coupé" },
+    { src: "/photos/roadster-bay.jpg", alt: "A blue roadster in a garage bay", caption: "Roadster" },
+    { src: "/photos/polisher-hood.jpg", alt: "Machine polishing a hood", caption: "Polish" },
+    { src: "/photos/dashboard-brush.jpg", alt: "Brushing a classic dashboard clean", caption: "Interior" },
+    { src: "/photos/headlight-dark.jpg", alt: "A headlight lit in the dark", caption: "Headlight" },
+    { src: "/photos/roadster-underground.jpg", alt: "A black vintage roadster parked underground", caption: "Vintage roadster" },
+    { src: "/photos/storage-hall.jpg", alt: "A long hall of stored collector cars", caption: "Storage hall" },
+    { src: "/photos/workshop-floor.jpg", alt: "Classic cars on a workshop floor", caption: "Workshop" },
+    { src: "/photos/tail-lights.jpg", alt: "A red coupé from behind with its tail lights on", caption: "Tail lights" },
   ] as Photo[],
 };
 

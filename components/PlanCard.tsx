@@ -53,7 +53,7 @@ export function PlanCard({ plan, index, compact = false, headingLevel: H = "h3" 
           size={compact ? "sm" : "md"}
           aria-label={`${site.cta.label}: ${plan.name}`}
         >
-          {site.cta.label}
+          {compact ? "Choose plan" : site.cta.label}
         </Button>
       </div>
     </article>
